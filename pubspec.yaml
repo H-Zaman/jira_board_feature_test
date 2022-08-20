@@ -12,6 +12,10 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   drag_and_drop_lists: ^0.3.2+2
+  get: ^4.6.5
+  cached_network_image: ^3.2.1
+  google_fonts: ^3.0.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
