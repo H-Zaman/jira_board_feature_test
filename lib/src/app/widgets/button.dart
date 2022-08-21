@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
 
@@ -89,8 +90,10 @@ class _WebButton extends StatelessWidget {
               child: icon,
             ),
 
-            Text(
+            AutoSizeText(
               label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 letterSpacing: 2,
                 color: Colors.white,

@@ -12,11 +12,12 @@ class DeviceHelper extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints){
-        if(constraints.maxWidth > 600 && constraints.maxWidth < 992){
+    final value = MediaQuery.of(context).size.shortestSide;
+    return Builder(
+      builder: (context){
+        if(value > 600 && value < 992){
           return tabView;
-        }else if(constraints.maxWidth > 992){
+        }else if(value > 992){
           return webView;
         }else{
           return mobileView;

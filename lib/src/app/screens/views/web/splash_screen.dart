@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 import 'package:ordermanagement/src/utilities/resources/_resources.dart';
 import 'package:ordermanagement/src/app/widgets/_widgets.dart';
 
@@ -31,7 +33,7 @@ class _SplashScreenWebState extends State<SplashScreenWeb> {
       extendBodyBehindAppBar: true,
       appBar: WebAppBar(
         leading: AppLogo(),
-        menu: demoMenu.map((menu) => _MenuButton(
+        menu: demoMenu.map((menu) => MenuButton(
           menu: menu,
           selected: selectedMenu == menu,
           onPressed: (){
@@ -54,8 +56,8 @@ class _SplashScreenWebState extends State<SplashScreenWeb> {
               Icons.person,
               color: Colors.black,
             ),
-            label: Text(
-              'Sign in to workspace',
+            label: AutoSizeText(
+              Translate.sign_in_workspace.tr,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18
@@ -119,7 +121,7 @@ class _HomeView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Beautiful Workspace in the heart\nof your city',
+                Translate.splash_header.tr,
                 style: TextStyle(
                   letterSpacing: 4,
                   fontSize: 52,
@@ -132,7 +134,7 @@ class _HomeView extends StatelessWidget {
                 children: [
                   Expanded(child: SizedBox()),
                   Expanded(child: Text(
-                    'Whether you need a desk, office, suite, or entire HQ, we create environments that increase productivity, innovation and collaboration.',
+                    Translate.splash_subtitle.tr,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 24,
@@ -167,7 +169,7 @@ class _AboutView extends StatelessWidget {
               left: Get.width * .08,
               bottom: 24
             ),
-            child: Text(
+            child: AutoSizeText(
               'Dedicated Teams.\nFor Your Dedicated Dreams.',
               style: TextStyle(
                 letterSpacing: 4,
@@ -202,7 +204,7 @@ class _AboutView extends StatelessWidget {
                         children: [
                           Expanded(child: SizedBox()),
                           Expanded(
-                            child: Text(
+                            child: AutoSizeText(
                               'Helping You\nGrow In Every Stage',
                               style: TextStyle(
                                 letterSpacing: 2,
@@ -232,7 +234,7 @@ class _AboutView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        AutoSizeText(
                           'Why We Do This',
                           style: TextStyle(
                             letterSpacing: 2,
@@ -241,7 +243,7 @@ class _AboutView extends StatelessWidget {
                             fontWeight: FontWeight.bold
                           ),
                         ),
-                        Text(
+                        AutoSizeText(
                           'Our founders also feel the burden of creating their very fast business, As their frustration manifest this product, signed is born to help fellow entrepreneurs to be focused on one aspect, do business.',
                           style: TextStyle(
                             letterSpacing: 1.1,
@@ -268,52 +270,6 @@ class _AboutView extends StatelessWidget {
 
         ],
       ),
-    );
-  }
-}
-
-
-class _MenuButton extends StatelessWidget {
-  final String menu;
-  final bool selected;
-  final VoidCallback onPressed;
-  const _MenuButton({
-    Key? key,
-    required this.menu,
-    required this.selected,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        TextButton(
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            padding: EdgeInsets.fromLTRB(32,10,32,20),
-          ),
-          child: Text(
-            menu,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 20
-            ),
-          )
-        ),
-        AnimatedPositioned(
-          duration: Duration(milliseconds: 300),
-          bottom: selected ? 0 : -10,
-          left: 0,
-          right: 0,
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            color: Colors.black,
-            height: 4,
-          ),
-        )
-      ],
     );
   }
 }

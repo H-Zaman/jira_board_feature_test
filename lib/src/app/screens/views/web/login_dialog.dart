@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/app/screens/home_screen.dart';
 import 'package:ordermanagement/src/app/widgets/_widgets.dart';
+import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 import 'package:ordermanagement/src/utilities/resources/_resources.dart';
 
 class LoginDialogWeb extends StatelessWidget {
@@ -13,7 +13,7 @@ class LoginDialogWeb extends StatelessWidget {
     bool loading = false;
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(6),
       ),
       backgroundColor: Colors.white,
       child: Stack(
@@ -28,8 +28,8 @@ class LoginDialogWeb extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
+                        topLeft: Radius.circular(6),
+                        bottomLeft: Radius.circular(6),
                       ),
                       image: DecorationImage(
                         image: AssetImage(Images.loginDialogBg),
@@ -49,7 +49,7 @@ class LoginDialogWeb extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Log In',
+                          Translate.log_in.tr,
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold
@@ -57,14 +57,18 @@ class LoginDialogWeb extends StatelessWidget {
                         ),
                         const SizedBox(height: 32),
                         CTextField(
-                          title: 'Email',
-                          hint: 'Enter your email address',
+                          title: Translate.email.tr,
+                          hint: Translate.enter_your_obj.trParams({
+                            'obj' : Translate.email.tr
+                          }),
                           borderColor: Colors.black,
                         ),
                         const SizedBox(height: 24),
                         CTextField(
-                          title: 'Password',
-                          hint: 'Enter your Password',
+                          title: Translate.password.tr,
+                          hint: Translate.enter_your_obj.trParams({
+                            'obj' : Translate.password.tr
+                          }),
                           borderColor: Colors.black,
                           password: true,
                         ),
@@ -86,7 +90,7 @@ class LoginDialogWeb extends StatelessWidget {
                                 });
 
                               },
-                              label: 'LOGIN',
+                              label: Translate.login.tr.toUpperCase(),
                             );
                           }),
                         )
