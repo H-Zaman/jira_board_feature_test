@@ -32,7 +32,7 @@ class LoginDialogWeb extends StatelessWidget {
                         bottomLeft: Radius.circular(12),
                       ),
                       image: DecorationImage(
-                        image: CachedNetworkImageProvider(Images.loginDialogBg),
+                        image: AssetImage(Images.loginDialogBg),
                         fit: BoxFit.cover
                       )
                     ),
