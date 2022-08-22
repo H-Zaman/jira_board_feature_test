@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/app/model/_model.dart';
 import 'package:ordermanagement/src/app/screens/views/web/board/add_edit_card_view.dart';
-import 'package:ordermanagement/src/app/screens/views/web/board/add_column_view.dart';
+import 'package:ordermanagement/src/app/screens/views/web/board/add_edit_column_view.dart';
 
 class BoardController extends GetxController{
   static BoardController get = Get.isRegistered<BoardController>() ? Get.find<BoardController>() : Get.put(BoardController());
@@ -74,7 +74,7 @@ class BoardController extends GetxController{
     ));
   }
 
-  Future<void> addColumn() async => await Get.dialog(AddColumnView());
+  Future<void> addEditColumn([ColumnModel? column]) async => await Get.dialog(AddEditColumnView(column: column));
 
   Future<void> editCard(CardModel item) async => await Get.dialog(AddEditCardView(
     columnId: item.columnId,

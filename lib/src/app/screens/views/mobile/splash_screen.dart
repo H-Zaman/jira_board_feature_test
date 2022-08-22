@@ -5,8 +5,6 @@ import 'package:ordermanagement/src/app/widgets/_widgets.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 import 'package:ordermanagement/src/utilities/resources/_resources.dart';
 import 'package:get/get.dart';
-
-import '../web/login_dialog.dart';
 import 'login_bottom_sheet.dart';
 
 class SplashScreenMobile extends StatefulWidget {
@@ -30,7 +28,6 @@ class _SplashScreenMobileState extends State<SplashScreenMobile> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.shortestSide);
     return Scaffold(
       body: Stack(
         children: [

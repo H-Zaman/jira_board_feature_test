@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DeviceHelper(
+    return DeviceHelperWidget(
       mobileView: HomeScreenMobile(),
       tabView: HomeScreenTab(),
       webView: HomeScreenWeb()

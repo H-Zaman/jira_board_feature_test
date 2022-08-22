@@ -7,5 +7,10 @@ Map<String, String> enLang = {
   'email' : 'Email',
   'enter_your_obj' : 'Enter your @obj',
   'password' : 'Password',
+  'created_on_date' : 'Created on @date',
+  'menu' : 'Menu',
+  'add_obj' : 'Add @obj',
+  'column' : 'Column',
+  'card' : 'Card',
   '' : '',
 };

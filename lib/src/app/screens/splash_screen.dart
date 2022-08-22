@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DeviceHelper(
+    return DeviceHelperWidget(
         mobileView: SplashScreenMobile(),
         tabView: SplashScreenTab(),
         webView: SplashScreenWeb()

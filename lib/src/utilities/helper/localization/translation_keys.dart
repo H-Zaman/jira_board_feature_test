@@ -12,6 +12,11 @@ class Translate{
   static const String log_in = 'log_in';
   static const String login = 'login';
   static const String enter_your_obj = 'enter_your_obj';
+  static const String created_on_date = 'created_on_date';
+  static const String menu = 'menu';
+  static const String add_obj = 'add_obj';
+  static const String column = 'column';
+  static const String card = 'card';
 
 
 }

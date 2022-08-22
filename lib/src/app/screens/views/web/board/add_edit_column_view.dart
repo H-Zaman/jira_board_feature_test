@@ -3,20 +3,28 @@ import 'package:get/get.dart';
 import 'package:ordermanagement/src/app/controller/_controllers.dart';
 import 'package:ordermanagement/src/app/model/_model.dart';
 
-class AddColumnView extends StatelessWidget {
-  const AddColumnView({Key? key}) : super(key: key);
+class AddEditColumnView extends StatelessWidget {
+  final ColumnModel? column;
+  const AddEditColumnView({Key? key, this.column}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _controller = BoardController.get;
 
+    bool isUpdate = this.column != null;
+
     bool firstColumn = false;
     bool lastColumn = false;
-    final _textController = TextEditingController();
+    TextEditingController _textController = TextEditingController();
+    if(isUpdate){
+      _textController.text = this.column!.columnName;
+      firstColumn = this.column!.isFirstColumn;
+      lastColumn = this.column!.isLastColumn;
+    }
 
     return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) => AlertDialog(
       title: Text(
-        'Enter Column Name'
+        '${isUpdate ? 'Update' : 'Enter'} Column Name'
       ),
       content: TextField(
         controller: _textController,
@@ -72,15 +80,27 @@ class AddColumnView extends StatelessWidget {
               onPressed: (){
                 if(_textController.text.isNotEmpty){
 
-                  _controller.columns.insert(
+                  if(isUpdate){
+
+                    final _colIndex = _controller.columns.indexOf(this.column);
+
+                    _controller.columns[_colIndex]
+                      ..columnName = _textController.text
+                      ..isFirstColumn = firstColumn
+                      ..isLastColumn = lastColumn;
+
+                  }else{
+                    _controller.columns.insert(
                       firstColumn ? 0 : _controller.columns.length,
                       ColumnModel(
-                          id: _controller.columns.length+1,
-                          columnName: _textController.text,
-                          isFirstColumn: firstColumn,
-                          isLastColumn: lastColumn
+                        id: _controller.columns.length+1,
+                        columnName: _textController.text,
+                        isFirstColumn: firstColumn,
+                        isLastColumn: lastColumn
                       )
-                  );
+                    );
+                  }
+
                   _controller.columns.refresh();
                   Get.back();
                 }

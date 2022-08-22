@@ -21,7 +21,7 @@ class CButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DeviceHelper(
+    return DeviceHelperWidget(
       mobileView: _WebButton(
         key: key,
         onPressed: onPressed,
