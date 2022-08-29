@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/app/controller/_controllers.dart';
-import 'package:ordermanagement/src/app/model/_model.dart';
+import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
+import 'package:ordermanagement/src/merchant/model/column_model.dart';
 
 class AddEditColumnView extends StatelessWidget {
   final ColumnModel? column;

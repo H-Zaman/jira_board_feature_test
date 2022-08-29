@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/app/controller/_controllers.dart';
-import 'package:ordermanagement/src/app/screens/views/board_view.dart';
+import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
+import 'package:ordermanagement/src/merchant/screens/views/board_view.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 
 class BoardScreenWeb extends StatefulWidget {

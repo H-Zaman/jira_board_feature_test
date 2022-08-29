@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/app/screens/home_screen.dart';
-import 'package:ordermanagement/src/app/widgets/_widgets.dart';
+import 'package:ordermanagement/src/merchant/screens/home_screen.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
+import 'package:ordermanagement/src/widgets/_widgets.dart';
 
 class LoginBottomSheet extends StatelessWidget {
   const LoginBottomSheet({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class LoginBottomSheet extends StatelessWidget {
                     });
 
                     Future.delayed(Duration(seconds: 1),(){
-                      Get.offAll(() => HomeScreen());
+                      Get.offAllNamed(HomeScreenMerchant.route);
                     });
 
                   },

@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/app/model/_model.dart';
-import 'package:ordermanagement/src/app/screens/views/web/board/add_edit_card_view.dart';
-import 'package:ordermanagement/src/app/screens/views/web/board/add_edit_column_view.dart';
+import 'package:ordermanagement/src/merchant/model/card_model.dart';
+import 'package:ordermanagement/src/merchant/model/column_model.dart';
+import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
+import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_column_view.dart';
 
 class BoardController extends GetxController{
   static BoardController get = Get.isRegistered<BoardController>() ? Get.find<BoardController>() : Get.put(BoardController());

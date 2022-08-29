@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/app/controller/_controllers.dart';
+import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 
 class MobileAppbar extends StatelessWidget implements PreferredSizeWidget{

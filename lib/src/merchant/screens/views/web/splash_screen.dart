@@ -2,10 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:ordermanagement/src/customer/screens/home_screen.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 import 'package:ordermanagement/src/utilities/resources/_resources.dart';
-import 'package:ordermanagement/src/app/widgets/_widgets.dart';
-
+import 'package:ordermanagement/src/widgets/_widgets.dart';
 import 'login_dialog.dart';
 
 class SplashScreenWeb extends StatefulWidget {
@@ -32,7 +32,11 @@ class _SplashScreenWebState extends State<SplashScreenWeb> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: WebAppBar(
-        leading: AppLogo(),
+        leading: GestureDetector(
+          onTap: (){
+            Get.offAllNamed(HomeScreenCustomer.route);
+          },
+            child: AppLogo()),
         menu: demoMenu.map((menu) => MenuButton(
           menu: menu,
           selected: selectedMenu == menu,
@@ -69,8 +73,7 @@ class _SplashScreenWebState extends State<SplashScreenWeb> {
       ),
       body: LiquidSwipe(
         liquidController: _controller,
-        initialPage: 1,
-        // waveType: WaveType.circularReveal,
+        initialPage: 0,
         pages: [
           _HomeView(),
           _AboutView(),

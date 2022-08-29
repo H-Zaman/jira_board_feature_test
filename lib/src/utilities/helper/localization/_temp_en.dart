@@ -12,5 +12,13 @@ Map<String, String> enLang = {
   'add_obj' : 'Add @obj',
   'column' : 'Column',
   'card' : 'Card',
+  'home_header' : 'Some big big header text',
+  'home_subtitle' : 'Some big small little something text some big small little something text',
+  'terms_conditions' : 'Terms & Conditions',
+  'allow_notification_subtitle' : 'Allow notification services to this and that',
+  'enter_obj' : 'Enter @obj',
+  'allow_obj' : 'Allow @obj',
+  'order_number' : 'Order number',
+  'notification' : 'Notification',
   '' : '',
 };

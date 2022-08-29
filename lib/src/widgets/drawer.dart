@@ -2,9 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/app/screens/splash_screen.dart';
-import 'package:ordermanagement/src/app/widgets/_widgets.dart';
+import 'package:ordermanagement/src/merchant/screens/splash_screen.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
+
+import '_widgets.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -119,7 +120,7 @@ class _MobileDrawer extends StatelessWidget {
                   ),
                   DrawerListTile(
                     onPressed: (){
-                      Get.offAll(()=>SplashScreen());
+                      Get.offAllNamed(SplashScreen.route);
                     },
                     icon: Icons.logout,
                     label: 'Logout',
@@ -233,7 +234,7 @@ class _WebDrawer extends StatelessWidget {
                     ),
                     DrawerListTile(
                       onPressed: (){
-                        Get.offAll(()=>SplashScreen());
+                        Get.offAllNamed(SplashScreen.route);
                       },
                       icon: Icons.logout,
                       label: 'Logout',

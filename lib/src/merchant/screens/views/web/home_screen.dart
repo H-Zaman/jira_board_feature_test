@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/app/widgets/_widgets.dart';
+import 'package:ordermanagement/src/widgets/_widgets.dart';
 import 'board/board_screen.dart';
 
 class HomeScreenWeb extends StatefulWidget {
