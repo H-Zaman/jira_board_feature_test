@@ -17,7 +17,7 @@ class AddEditColumnView extends StatelessWidget {
     bool lastColumn = false;
     TextEditingController _textController = TextEditingController();
     if(isUpdate){
-      _textController.text = this.column!.columnName;
+      _textController.text = this.column!.name;
       firstColumn = this.column!.isFirstColumn;
       lastColumn = this.column!.isLastColumn;
     }
@@ -85,7 +85,7 @@ class AddEditColumnView extends StatelessWidget {
                     final _colIndex = _controller.columns.indexOf(this.column);
 
                     _controller.columns[_colIndex]
-                      ..columnName = _textController.text
+                      ..name = _textController.text
                       ..isFirstColumn = firstColumn
                       ..isLastColumn = lastColumn;
 
@@ -93,8 +93,8 @@ class AddEditColumnView extends StatelessWidget {
                     _controller.columns.insert(
                       firstColumn ? 0 : _controller.columns.length,
                       ColumnModel(
-                        id: _controller.columns.length+1,
-                        columnName: _textController.text,
+                        index: _controller.columns.length+1,
+                        name: _textController.text,
                         isFirstColumn: firstColumn,
                         isLastColumn: lastColumn
                       )

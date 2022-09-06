@@ -46,12 +46,12 @@ class Api{
       Log.i('------------DATA------------\n$route', apiResponse.data);
 
       String? authToken;
-      if(apiResponse.data['response_data'] is Map && apiResponse.data['response_data'].containsKey('token')){
+      if(apiResponse.data['response_data'] is Map && apiResponse.data['response_data'].containsKey('basicAuth')){
         authToken = apiResponse.data['response_data']['basicAuth'];
       }
 
       return AResponse(
-        error: apiResponse.data['response_status'] == 1,
+        error: apiResponse.data['response_status'] != 1,
         message: apiResponse.data['response_message'],
         data: apiResponse.data['response_data'] == null ? apiResponse.data : apiResponse.data['response_data'],
         token: authToken

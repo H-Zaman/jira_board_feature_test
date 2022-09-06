@@ -34,7 +34,7 @@ class AddEditCardView extends StatelessWidget {
             children: _controller.columns.map((column) => GestureDetector(
               onTap: (){
                 setState((){
-                  columnId = column.id;
+                  columnId = column.index;
                 });
               },
               child: Card(
@@ -44,13 +44,13 @@ class AddEditCardView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                          column.columnName
+                          column.name
                       ),
                       Checkbox(
-                          value: columnId == column.id,
+                          value: columnId == column.index,
                           onChanged: (newValue){
                             setState((){
-                              columnId = column.id;
+                              columnId = column.index;
                             });
                           }
                       )
@@ -80,11 +80,11 @@ class AddEditCardView extends StatelessWidget {
 
                   if(_textController.text.isNotEmpty){
 
-                    final insertColumnIndex = columnId == null ? 0 : _controller.columns.indexWhere((column) => column.id == columnId);
+                    final insertColumnIndex = columnId == null ? 0 : _controller.columns.indexWhere((column) => column.index == columnId);
 
                     if(isUpdate){
 
-                      final colIndex = _controller.columns.indexWhere((column) => column.id == item!.columnId);
+                      final colIndex = _controller.columns.indexWhere((column) => column.index == item!.columnId);
                       final itemIndex = _controller.columns[colIndex].items.indexWhere((item) => item.id == this.item!.id);
 
                       if(columnId != this.item!.columnId){
@@ -102,7 +102,7 @@ class AddEditCardView extends StatelessWidget {
                     }else{
                       _controller.columns[insertColumnIndex].items.add(CardModel(
                         id: _controller.itemID,
-                        columnId: _controller.columns[insertColumnIndex].id,
+                        columnId: _controller.columns[insertColumnIndex].index,
                         message: _textController.text
                       ));
                       _controller.itemID++;

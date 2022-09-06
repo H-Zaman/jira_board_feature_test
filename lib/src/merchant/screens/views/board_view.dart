@@ -84,7 +84,7 @@ class _ColumnHeader extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: Text(
-                column.columnName,
+                column.name,
                 style: TextStyle(
                   fontSize: deviceType == DeviceType.MOBILE ? 20 : 24,
                   color: Colors.black,
