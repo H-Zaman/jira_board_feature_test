@@ -7,8 +7,11 @@ class Endpoints{
 
   static const String account = '/account';
   static const String login = '$account/login';
+  static String user (String userid) => '$account/user/$userid';
 
-  static bool isAuthRequired (String endpoint) => [
+  static const String columns = '/merchant/state';
 
-  ].contains(endpoint);
+  static const String cards = '/merchant/queues';
+
+  static const String adminMerchants = '/admin/merchants';
 }

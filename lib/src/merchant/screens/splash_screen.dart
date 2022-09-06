@@ -19,16 +19,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
 
-  @override
-  void initState() {
-    super.initState();
-
-    if(AuthController.get.token != null){
-      Future.delayed(Duration(milliseconds: 100),(){
-        Get.offAllNamed(HomeBoardScreen.route);
-      });
-    }
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   if(AuthController.get.token != null){
+  //     Future.delayed(Duration(milliseconds: 100),(){
+  //       Get.offAllNamed(HomeBoardScreen.route);
+  //     });
+  //   }
+  // }
   
   @override
   Widget build(BuildContext context) {

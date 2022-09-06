@@ -32,7 +32,7 @@ class LocalStorageKeys{
   LocalStorageKeys._();
 
   static const String user = 'user_profile';
-  static const String token = 'user_jwt_auth_token';
+  static const String token = 'user_auth_token';
   static const String locale = 'user_lang_pref';
   static const String location = 'user_last_location';
   static const String searchedLocations = 'user_location_search_list';

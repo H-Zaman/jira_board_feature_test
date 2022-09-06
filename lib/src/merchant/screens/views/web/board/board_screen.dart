@@ -59,11 +59,12 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
                   ],
                 ),
                 onSelected: (val) async{
-                  if(val == 1){
-                    _controller.addEditColumn();
-                  }else if(val == 2){
-                    _controller.addCard();
-                  }
+                  _controller.allCards();
+                  // if(val == 1){
+                  //   _controller.addEditColumn();
+                  // }else if(val == 2){
+                  //   _controller.addCard();
+                  // }
                 },
                 itemBuilder: (_) => [
                   PopupMenuItem(
