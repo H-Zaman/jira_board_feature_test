@@ -24,7 +24,7 @@ class BoardRepo{
   }
 
   getAllCards() async{
-    final res = await Api.get('Endpoints.user('I22942145370')');
+    final res = await Api.get(Endpoints.user('I22942145370'));
 
   }
 
