@@ -4,11 +4,11 @@ import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
 import 'views/mobile/home_screen.dart';
 import 'views/web/home_screen.dart';
 
-class HomeScreenMerchant extends StatelessWidget {
-  static const String route = '/HomeScreenMerchant';
+class HomeBoardScreen extends StatelessWidget {
+  static const String route = '/HomeBoardScreen';
 
 
-  const HomeScreenMerchant({Key? key}) : super(key: key);
+  const HomeBoardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

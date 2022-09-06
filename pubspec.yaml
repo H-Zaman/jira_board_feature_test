@@ -19,6 +19,10 @@ dependencies:
   liquid_swipe: ^3.0.0
   lottie: ^1.4.2
   url_strategy: ^0.2.0
+  qr_flutter: ^4.0.0
+  dio: ^4.0.6
+  logger: ^1.1.0
+  get_storage: ^2.0.3
 
 dev_dependencies:
   flutter_test:

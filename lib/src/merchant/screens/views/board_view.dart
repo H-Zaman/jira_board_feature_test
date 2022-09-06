@@ -6,10 +6,11 @@ import 'package:ordermanagement/src/merchant/model/card_model.dart';
 import 'package:ordermanagement/src/merchant/model/column_model.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
-
+import 'package:qr_flutter/qr_flutter.dart';
 
 class BoardView extends StatefulWidget {
-  const BoardView({Key? key}) : super(key: key);
+  final ScrollController? scrollController;
+  const BoardView({Key? key, this.scrollController}) : super(key: key);
 
   @override
   State<BoardView> createState() => _BoardViewState();
@@ -31,17 +32,30 @@ class _BoardViewState extends State<BoardView> {
           ),
           child: Obx(()=>DragAndDropLists(
             listWidth: deviceType == DeviceType.MOBILE ? 270 : 300,
+            itemDragOnLongPress: false,
+            itemSizeAnimationDurationMilliseconds: 0,
             listDecoration: BoxDecoration(
               color: Color(0xffFFFAFA),
               borderRadius: BorderRadius.all(Radius.circular(7.0)),
             ),
             listPadding: EdgeInsets.only(right: deviceType == DeviceType.MOBILE ? 14 : 24),
             axis: Axis.horizontal,
-            scrollController: _scrollController,
+            scrollController: widget.scrollController ?? _scrollController,
+            itemDragHandle: DragHandle(
+              verticalAlignment: DragHandleVerticalAlignment.top,
+              child: Padding(
+                padding: EdgeInsets.only(right: 10, top: 20),
+                child: Icon(
+                  Icons.menu,
+                  color: Colors.black26,
+                ),
+              ),
+            ),
             children: _controller.columns.map((column) => DragAndDropList(
               header: _ColumnHeader(column : column),
               contentsWhenEmpty: _EmptyColumn(),
-              children: column.items.map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList()
+              children: column.items.map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
+              canDrag: false,
             )).toList(),
             onItemReorder: _controller.onItemReorder,
             onListReorder: _controller.onListReorder,
@@ -84,22 +98,33 @@ class _ColumnHeader extends StatelessWidget {
                   color: Colors.grey,
                 ),
               ),
-              trailing: Card(
-                  margin: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(111)
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if(column.notify) Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Icon(
+                      Icons.notification_add_outlined
+                    ),
                   ),
-                  child: IconButton(
-                    constraints: BoxConstraints(),
-                    icon: Icon(Icons.more_horiz),
-                    onPressed: () async{
-                      _controller.addEditColumn(column);
-                    },
+                  Card(
+                    margin: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(111)
+                    ),
+                    child: IconButton(
+                      constraints: BoxConstraints(),
+                      icon: Icon(Icons.more_horiz),
+                      onPressed: () async{
+                        _controller.addEditColumn(column);
+                      },
+                    ),
                   ),
-                )
+                ],
+              )
             ),
 
-            Container(
+            if(column.isFirstColumn) Container(
               margin: EdgeInsets.symmetric(vertical: deviceType == DeviceType.MOBILE ? 8 : 14),
               height: deviceType == DeviceType.MOBILE ? 42 : 48,
               child: CButton(
@@ -156,6 +181,13 @@ class _ColumnCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final _controller = BoardController.get;
 
+    final qrView = QrImage(
+      data: "1234567890",
+      version: QrVersions.auto,
+      padding: EdgeInsets.zero,
+      size: 200,
+    );
+
     return GestureDetector(
       onTap: (){
         _controller.editCard(item);
@@ -165,19 +197,85 @@ class _ColumnCard extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(4)
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade300,
+                blurRadius: 2,
+                spreadRadius: 2,
+                offset: Offset(2,2),
+              )
+            ]
           ),
           padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(6),
+          margin: EdgeInsets.fromLTRB(6, 6, 6, 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                item.message,
-                style: TextStyle(
-                  fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
-                  fontWeight: FontWeight.w700
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      item.message,
+                      style: TextStyle(
+                        fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
+                        fontWeight: FontWeight.w700
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Get.dialog(AlertDialog(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              onPressed: (){},
+                              icon: Icon(
+                                Icons.print
+                              )
+                            ),
+                            IconButton(
+                              onPressed: (){},
+                              icon: Icon(
+                                Icons.share
+                              )
+                            )
+                          ],
+                        ),
+                        content: Container(
+                          height: Get.height * .2,
+                          width: deviceType == DeviceType.MOBILE ? Get.width * .7 : Get.width * .1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: qrView,
+                              ),
+                              SizedBox(height: 14),
+                              Row(
+                                children: [
+                                  Text(
+                                    'some links'
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        ),
+                      ));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 24, left: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      height: 32,
+                      width: 32,
+                      child: qrView
+                    ),
+                  )
+                ],
               ),
               SizedBox(height: 8),
               Text(

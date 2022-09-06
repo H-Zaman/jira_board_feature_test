@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/screens/home_screen.dart';
+import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
+import 'package:ordermanagement/src/utilities/helper/text_validators.dart';
 import 'package:ordermanagement/src/utilities/resources/_resources.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
 
@@ -10,6 +11,13 @@ class LoginDialogWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final _authController = AuthController.get;
+
+    final GlobalKey<FormState> key = GlobalKey();
+    final userNameController = TextEditingController(text: 'smkma');
+    final passwordController = TextEditingController(text: '123456');
+
     bool loading = false;
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -45,57 +53,72 @@ class LoginDialogWeb extends StatelessWidget {
                       horizontal: 32,
                       vertical: 42
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          Translate.log_in.tr,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
+                    child: Form(
+                      key: key,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            Translate.log_in.tr,
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 32),
-                        CTextField(
-                          title: Translate.email.tr,
-                          hint: Translate.enter_your_obj.trParams({
-                            'obj' : Translate.email.tr
-                          }),
-                          borderColor: Colors.black,
-                        ),
-                        const SizedBox(height: 24),
-                        CTextField(
-                          title: Translate.password.tr,
-                          hint: Translate.enter_your_obj.trParams({
-                            'obj' : Translate.password.tr
-                          }),
-                          borderColor: Colors.black,
-                          password: true,
-                        ),
-                        const SizedBox(height: 32),
+                          const SizedBox(height: 32),
+                          CTextField(
+                            controller: userNameController,
+                            title: Translate.username.tr,
+                            hint: Translate.enter_your_obj.trParams({
+                              'obj' : Translate.username.tr
+                            }),
+                            borderColor: Colors.black,
+                            validator: (string) => TextValidators.normal(string, Translate.validUserName.tr),
+                          ),
+                          const SizedBox(height: 24),
+                          CTextField(
+                            controller: passwordController,
+                            title: Translate.password.tr,
+                            hint: Translate.enter_your_obj.trParams({
+                              'obj' : Translate.password.tr
+                            }),
+                            borderColor: Colors.black,
+                            password: true,
+                            validator: TextValidators.password,
+                          ),
+                          const SizedBox(height: 32),
 
-                        SizedBox(
-                          width: 180,
-                          child: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
-                            return CButton(
-                              loading: loading,
-                              onPressed: (){
+                          SizedBox(
+                            width: 180,
+                            child: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
+                              return CButton(
+                                loading: loading,
+                                onPressed: () async{
 
-                                setState((){
-                                  loading = true;
-                                });
+                                  if(!key.currentState!.validate()) return ;
 
-                                Future.delayed(Duration(seconds: 1),(){
-                                  Get.offAllNamed(HomeScreenMerchant.route);
-                                });
+                                  setState((){
+                                    loading = true;
+                                  });
 
-                              },
-                              label: Translate.login.tr.toUpperCase(),
-                            );
-                          }),
-                        )
+                                  final errorMsg = await _authController.login(userNameController.text, passwordController.text);
 
-                      ],
+                                  if(errorMsg != null){
+
+                                  }
+
+                                  setState((){
+                                    loading = false;
+                                  });
+
+                                },
+                                label: Translate.login.tr.toUpperCase(),
+                              );
+                            }),
+                          )
+
+                        ],
+                      ),
                     ),
                   ),
                 ),

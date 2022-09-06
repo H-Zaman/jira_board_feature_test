@@ -67,7 +67,7 @@ class LoginBottomSheet extends StatelessWidget {
                     });
 
                     Future.delayed(Duration(seconds: 1),(){
-                      Get.offAllNamed(HomeScreenMerchant.route);
+                      Get.offAllNamed(HomeBoardScreen.route);
                     });
 
                   },

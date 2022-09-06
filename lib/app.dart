@@ -24,9 +24,10 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashScreen.route : (context) => SplashScreen(),
         HomeScreenCustomer.route : (context) => HomeScreenCustomer(),
-        HomeScreenMerchant.route : (context) => HomeScreenMerchant(),
+        HomeBoardScreen.route : (context) => HomeBoardScreen(),
       },
-      initialRoute: Uri.base.path,
+      // initialRoute: Uri.base.path,
+      initialRoute: SplashScreen.route,
     );
   }
 }

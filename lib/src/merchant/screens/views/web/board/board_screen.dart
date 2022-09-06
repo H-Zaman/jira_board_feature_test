@@ -97,7 +97,9 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
             thumbVisibility: true,
             trackVisibility: true,
             scrollbarOrientation: ScrollbarOrientation.bottom,
-            child: BoardView(),
+            child: BoardView(
+              scrollController: _scrollController
+            ),
           ),
         )
       ],

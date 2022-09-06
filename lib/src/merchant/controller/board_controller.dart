@@ -17,7 +17,8 @@ class BoardController extends GetxController{
           CardModel(id: 1, columnId: 1, message: 'Create New Wireframe'),
           CardModel(id: 2, columnId: 1, message: 'Complete Inspection'),
           CardModel(id: 3, columnId: 1, message: 'Start On Mobile View'),
-        ]
+        ],
+      isFirstColumn: true
     ),
     ColumnModel(
         id: 2,
@@ -28,7 +29,8 @@ class BoardController extends GetxController{
           CardModel(id: 6, columnId: 2, message: 'Create Controllers For State Management'),
           CardModel(id: 7, columnId: 2, message: 'Release Blog'),
           CardModel(id: 8, columnId: 2, message: 'Do Usability Testing'),
-        ]
+        ],
+      notify: true
     ),
     ColumnModel(
         id: 3,

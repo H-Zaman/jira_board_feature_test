@@ -5,6 +5,7 @@ class ColumnModel{
   String columnName;
   bool isFirstColumn;
   bool isLastColumn;
+  bool notify;
   List<CardModel> items;
 
   ColumnModel({
@@ -12,6 +13,7 @@ class ColumnModel{
     required this.columnName,
     this.isFirstColumn = false,
     this.isLastColumn = false,
+    this.notify = false,
     this.items = const []
   });
 }

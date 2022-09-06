@@ -5,6 +5,7 @@ Map<String, String> enLang = {
   'log_in' : 'Log In',
   'login' : 'Login',
   'email' : 'Email',
+  'username' : 'Username',
   'enter_your_obj' : 'Enter your @obj',
   'password' : 'Password',
   'created_on_date' : 'Created on @date',
@@ -20,5 +21,7 @@ Map<String, String> enLang = {
   'allow_obj' : 'Allow @obj',
   'order_number' : 'Order number',
   'notification' : 'Notification',
+  'validUserName' : 'Username can not be empty',
+  'validPassword' : 'Password must be at-least 6 character',
   '' : '',
 };

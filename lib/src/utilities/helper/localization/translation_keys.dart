@@ -8,6 +8,7 @@ class Translate{
   static const String splash_subtitle = 'splash_subtitle';
   static const String sign_in_workspace = 'sign_in_workspace';
   static const String email = 'email';
+  static const String username = 'username';
   static const String password = 'password';
   static const String log_in = 'log_in';
   static const String login = 'login';
@@ -20,6 +21,9 @@ class Translate{
   static const String home_subtitle = 'home_subtitle';
   static const String terms_conditions = 'terms_conditions';
   static const String allow_notification_subtitle = 'allow_notification_subtitle';
+
+  static const String validUserName = 'validUserName';
+  static const String validPassword = 'validPassword';
 
   static const String enter_your_obj = 'enter_your_obj';
   static const String enter_obj = 'enter_obj';

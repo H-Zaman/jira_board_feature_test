@@ -8,6 +8,7 @@ class CTextField extends StatefulWidget {
   final Color fillColor;
   final int? maxLines;
   final bool password;
+  final String? Function(String?)? validator;
   const CTextField({
     Key? key,
     this.borderColor = Colors.white,
@@ -17,6 +18,7 @@ class CTextField extends StatefulWidget {
     this.title,
     this.password = false,
     this.maxLines,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -50,7 +52,8 @@ class _CTextFieldState extends State<CTextField> {
         const SizedBox(height: 12),
         Stack(
           children: [
-            TextField(
+            TextFormField(
+              validator: widget.validator,
               obscureText: showPassword,
               controller: widget.controller,
               maxLines: widget.password ? 1 : widget.maxLines,
