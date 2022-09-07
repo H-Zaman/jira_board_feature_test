@@ -35,6 +35,7 @@ class AuthController extends GetxController{
 
   Future<void> logout() async{
     await _localStorage.deleteToken();
+    token = null;
     Get.offAllNamed(SplashScreen.route);
   }
 }
