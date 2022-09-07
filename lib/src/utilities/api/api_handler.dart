@@ -16,13 +16,14 @@ class Api{
   static const int _receiveTimeout = 30000;
 
   static final Map<String, dynamic> _headers = {
+    "Access-Control-Expose-Headers": "*",
     'accept': 'application/json',
     'Content-Type': 'application/json',
   };
 
   static final BaseOptions _options = BaseOptions(
-      connectTimeout: _connectTimeout,
-      receiveTimeout: _receiveTimeout
+    connectTimeout: _connectTimeout,
+    receiveTimeout: _receiveTimeout
   );
 
   static Dio _baseClient([String? baseUrl]){

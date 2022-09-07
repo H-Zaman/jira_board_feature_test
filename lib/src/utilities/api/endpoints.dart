@@ -10,8 +10,8 @@ class Endpoints{
   static String user (String userid) => '$account/user/$userid';
 
   static const String columns = '/merchant/state';
-
   static const String cards = '/merchant/queues';
+  static const String staffList = '/merchant/user';
 
   static const String adminMerchants = '/admin/merchants';
 }
