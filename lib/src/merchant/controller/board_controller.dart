@@ -24,10 +24,8 @@ class BoardController extends GetxController{
 
   Future<void> getData() async{
     _loading(true);
-    await Future.wait([
-      getAllColumns(),
-      getAllCards()
-    ]);
+    await getAllColumns();
+    await getAllCards();
     _loading(false);
   }
 

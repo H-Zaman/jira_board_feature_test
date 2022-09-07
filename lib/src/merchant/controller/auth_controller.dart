@@ -28,6 +28,7 @@ class AuthController extends GetxController{
     }
 
     _localStorage.saveToken(res.token!);
+    token = res.token!;
     _user.user = User.fromJson(res.data['profile']);
 
     return null;

@@ -4,6 +4,7 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
 import 'package:ordermanagement/src/merchant/model/card_model.dart';
 import 'package:ordermanagement/src/merchant/model/column_model.dart';
+import 'package:ordermanagement/src/utilities/date_time_extension.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -54,7 +55,7 @@ class _BoardViewState extends State<BoardView> {
             children: _controller.columns.map((column) => DragAndDropList(
               header: _ColumnHeader(column : column),
               contentsWhenEmpty: _EmptyColumn(),
-              children: column.items.map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
+              children: _controller.cards.where((card) => card.column == column.name).map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
               canDrag: false,
             )).toList(),
             onItemReorder: _controller.onItemReorder,
@@ -92,7 +93,7 @@ class _ColumnHeader extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                '${column.items.length} items available',
+                '${_controller.cards.where((card) => card.column == column.name).length} items available',
                 style: TextStyle(
                   fontSize: deviceType == DeviceType.MOBILE ? 12 : 14,
                   color: Colors.grey,
@@ -216,7 +217,7 @@ class _ColumnCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      item.comment,
+                      item.id,
                       style: TextStyle(
                         fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
                         fontWeight: FontWeight.w700
@@ -279,7 +280,7 @@ class _ColumnCard extends StatelessWidget {
               ),
               SizedBox(height: 8),
               Text(
-                'Buzz Aldrin, 4h ago',
+                '${item.user}, ${item.updatedAt.fr}',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey
@@ -287,7 +288,7 @@ class _ColumnCard extends StatelessWidget {
               ),
               SizedBox(height: 14),
               Text(
-                'Some info about this, it can be small or big basically anything regarding this card',
+                item.comment
               ),
             ],
           ),

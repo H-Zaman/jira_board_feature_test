@@ -1,5 +1,3 @@
-import 'card_model.dart';
-
 class ColumnModel{
   int index;
   String name;
@@ -8,7 +6,6 @@ class ColumnModel{
   bool isFirstColumn;
   bool isLastColumn;
   bool notify;
-  List<CardModel> items;
 
   ColumnModel({
     required this.index,
@@ -18,7 +15,6 @@ class ColumnModel{
     this.notify = false,
     this.isFirstColumn = false,
     this.isLastColumn = false,
-    this.items = const []
   });
 
   factory ColumnModel.fromJson(Map<String, dynamic> json) => ColumnModel(

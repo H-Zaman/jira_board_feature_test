@@ -6,7 +6,7 @@ class TextValidators{
   TextValidators._();
 
   static String? email(String? string) {
-    final String msg = 'Translate.validEmail.tr';
+    final String msg = Translate.validEmail.tr;
     if(string == null) return msg;
     final str = string.trim();
     return str.isEmail ? null : msg;
@@ -20,7 +20,7 @@ class TextValidators{
   }
 
   static String? phone(String? string) {
-    final String msg = 'Translate.validPhoneNumber.tr';
+    final String msg = Translate.validPhoneNumber.tr;
     if(string == null) return msg;
     final str = string.trim();
     return str.isNotEmpty ? null : msg;

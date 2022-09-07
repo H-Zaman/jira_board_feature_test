@@ -20,7 +20,7 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
 
   @override
   Widget build(BuildContext context) {
-    return _controller.loading ? Loader(
+    return Obx(()=>_controller.loading ? Loader(
       color: Colors.black,
     ) : Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +76,6 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
           ),
         )
       ],
-    );
+    ));
   }
 }

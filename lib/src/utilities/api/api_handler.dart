@@ -74,27 +74,34 @@ class Api{
 
     String errorMsg = '';
 
-    if(error is DioError){
-      if(error.type == DioErrorType.response){
-        if(error.response!.data == null) errorMsg = error.error;
-        errorMsg = error.response!.data['response_data']['message'];
-      }else if(error.type == DioErrorType.connectTimeout){
-        errorMsg += 'Request timed out';
-      }else if(error.response!.statusCode == 10000){
-        //TODO auth error
-        Get.Get.offAllNamed(SplashScreen.route);
+    try{
+      if(error is DioError){
+        if(error.type == DioErrorType.response){
+          if(error.response!.data == null) errorMsg = error.error;
+          errorMsg = error.response!.data['response_data']['message'];
+        }else if(error.type == DioErrorType.connectTimeout){
+          errorMsg += 'Request timed out';
+        }else if(error.response!.statusCode == 10000){
+          //TODO auth error
+          Get.Get.offAllNamed(SplashScreen.route);
+        }
+      }else{
+        errorMsg =  error.toString();
       }
-    }else{
-      errorMsg =  error.toString();
+
+
+      Log.e(errorMsg, '**********$route FAILED**********');
+      return AResponse(
+        error: true,
+        message: errorMsg,
+        data: error is DioError && error.response!.data != null ? EResponse.fromJson(error.response!.data['response_data']) : null
+      );
+    }catch(err){
+      return AResponse(
+        error: true,
+        message: errorMsg == '' ? err.toString() : errorMsg,
+      );
     }
-
-
-    Log.e(errorMsg, '**********$route FAILED**********');
-    return AResponse(
-      error: true,
-      message: errorMsg,
-      data: error is DioError && error.response!.data != null ? EResponse.fromJson(error.response!.data['response_data']) : null
-    );
 
   }
 
