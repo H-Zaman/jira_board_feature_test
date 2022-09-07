@@ -216,7 +216,7 @@ class _ColumnCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      item.message,
+                      item.comment,
                       style: TextStyle(
                         fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
                         fontWeight: FontWeight.w700

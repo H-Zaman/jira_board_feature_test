@@ -30,10 +30,7 @@ class BoardRepo{
 
     if(res.error) return [];
 
-    return List<CardModel>.from(res.data['queue-list'].map((column) => CardModel.fromJson(column)));
-
+    return List<CardModel>.from(res.data.map((column) => CardModel.fromJson(column)));
   }
-
-
 
 }

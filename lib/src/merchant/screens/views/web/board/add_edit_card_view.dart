@@ -18,7 +18,7 @@ class AddEditCardView extends StatelessWidget {
 
     final _textController = TextEditingController();
 
-    if(isUpdate) _textController.text = item!.message;
+    if(isUpdate) _textController.text = item!.comment;
 
     return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
       return AlertDialog(
@@ -76,42 +76,42 @@ class AddEditCardView extends StatelessWidget {
                 ),
                 onPressed: (){
 
-                  CardModel? data;
-
-                  if(_textController.text.isNotEmpty){
-
-                    final insertColumnIndex = columnId == null ? 0 : _controller.columns.indexWhere((column) => column.index == columnId);
-
-                    if(isUpdate){
-
-                      final colIndex = _controller.columns.indexWhere((column) => column.index == item!.columnId);
-                      final itemIndex = _controller.columns[colIndex].items.indexWhere((item) => item.id == this.item!.id);
-
-                      if(columnId != this.item!.columnId){
-                        _controller.columns[colIndex].items.removeAt(itemIndex);
-                        _controller.columns[insertColumnIndex].items.add(
-                          this.item!
-                            ..columnId = columnId!
-                            ..message = _textController.text
-                        );
-                      }else{
-                        _controller.columns[insertColumnIndex].items[itemIndex]
-                          ..message = _textController.text;
-                      }
-
-                    }else{
-                      _controller.columns[insertColumnIndex].items.add(CardModel(
-                        id: _controller.itemID,
-                        columnId: _controller.columns[insertColumnIndex].index,
-                        message: _textController.text
-                      ));
-                      _controller.itemID++;
-                    }
-
-
-                    _controller.columns.refresh();
-                    Get.back(result: data);
-                  }
+                  // CardModel? data;
+                  //
+                  // if(_textController.text.isNotEmpty){
+                  //
+                  //   final insertColumnIndex = columnId == null ? 0 : _controller.columns.indexWhere((column) => column.index == columnId);
+                  //
+                  //   if(isUpdate){
+                  //
+                  //     final colIndex = _controller.columns.indexWhere((column) => column.index == item!.column);
+                  //     final itemIndex = _controller.columns[colIndex].items.indexWhere((item) => item.id == this.item!.id);
+                  //
+                  //     if(columnId != this.item!.column){
+                  //       _controller.columns[colIndex].items.removeAt(itemIndex);
+                  //       _controller.columns[insertColumnIndex].items.add(
+                  //         this.item!
+                  //           ..column = columnId!
+                  //           ..comment = _textController.text
+                  //       );
+                  //     }else{
+                  //       _controller.columns[insertColumnIndex].items[itemIndex]
+                  //         ..comment = _textController.text;
+                  //     }
+                  //
+                  //   }else{
+                  //     _controller.columns[insertColumnIndex].items.add(CardModel(
+                  //       id: _controller.itemID,
+                  //       column: _controller.columns[insertColumnIndex].index,
+                  //       comment: _textController.text
+                  //     ));
+                  //     _controller.itemID++;
+                  //   }
+                  //
+                  //
+                  //   _controller.columns.refresh();
+                  //   Get.back(result: data);
+                  // }
                 },
               ),
             ],

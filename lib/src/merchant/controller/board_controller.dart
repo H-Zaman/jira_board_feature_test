@@ -26,7 +26,7 @@ class BoardController extends GetxController{
     _loading(true);
     await Future.wait([
       getAllColumns(),
-      // getAllCards()
+      getAllCards()
     ]);
     _loading(false);
   }
@@ -57,11 +57,11 @@ class BoardController extends GetxController{
 
 
   void onItemReorder(int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
-    CardModel movedItem = columns[oldListIndex].items.removeAt(oldItemIndex);
-    movedItem.columnId = columns[newListIndex].index;
-    // make newItemIndex  0 if always add to first
-    columns[newListIndex].items.insert(newItemIndex, movedItem);
-    columns.refresh();
+    // CardModel movedItem = columns[oldListIndex].items.removeAt(oldItemIndex);
+    // movedItem.column = columns[newListIndex].index;
+    // // make newItemIndex  0 if always add to first
+    // columns[newListIndex].items.insert(newItemIndex, movedItem);
+    // columns.refresh();
   }
 
   void onListReorder(int oldListIndex, int newListIndex) {
@@ -84,10 +84,12 @@ class BoardController extends GetxController{
 
   Future<void> addEditColumn([ColumnModel? column]) async => await Get.dialog(AddEditColumnView(column: column));
 
-  Future<void> editCard(CardModel item) async => await Get.dialog(AddEditCardView(
-    columnId: item.columnId,
-    item: item
-  ));
+  Future<void> editCard(CardModel item) async {
+    // await Get.dialog(AddEditCardView(
+    //     columnId: item.column,
+    //     item: item
+    // ));
+  }
 
   void allCards() => _repo.getAllCards();
 }
