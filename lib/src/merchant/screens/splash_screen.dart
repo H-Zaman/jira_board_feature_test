@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
 import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
+import 'package:ordermanagement/src/merchant/model/user.dart';
 import 'package:ordermanagement/src/merchant/screens/home_screen.dart';
+import 'package:ordermanagement/src/sys_admin/screens/home_screen.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
+import 'package:ordermanagement/src/widgets/_widgets.dart';
 
 import 'views/mobile/splash_screen.dart';
 import 'views/web/splash_screen.dart';
@@ -27,9 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
     if(AuthController.get.token != null){
       _userController.getSetUser().then((user){
         if(user != null){
-          Future.delayed(Duration(milliseconds: 100),(){
-            Get.offAllNamed(HomeBoardScreen.route);
-          });
+          if(user.userType == UserType.SYS_ADMIN){
+            Future.delayed(Duration(milliseconds: 300),(){
+              Get.offAllNamed(HomeScreenSysAdmin.route);
+            });
+          }else{
+            Future.delayed(Duration(milliseconds: 300),(){
+              Get.offAllNamed(HomeBoardScreen.route);
+            });
+          }
         }
       });
     }
@@ -37,10 +46,14 @@ class _SplashScreenState extends State<SplashScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return DeviceHelperWidget(
-      mobileView: SplashScreenMobile(),
-      tabView: SplashScreenWeb(),
-      webView: SplashScreenWeb()
+    return OverlayLoader(
+      loading: AuthController.get.token != null,
+      text: 'Logging In...',
+      child: DeviceHelperWidget(
+        mobileView: SplashScreenMobile(),
+        tabView: SplashScreenWeb(),
+        webView: SplashScreenWeb()
+      ),
     );
   }
 }

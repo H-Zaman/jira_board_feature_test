@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/model/user.dart';
 import 'package:ordermanagement/src/merchant/repository/auth.dart';
+import 'package:ordermanagement/src/merchant/screens/splash_screen.dart';
 import 'package:ordermanagement/src/utilities/api/_api.dart';
 import 'package:ordermanagement/src/utilities/local_storage.dart';
 import 'user_controller.dart';
@@ -32,5 +33,8 @@ class AuthController extends GetxController{
     return null;
   }
 
-
+  Future<void> logout() async{
+    await _localStorage.deleteToken();
+    Get.offAllNamed(SplashScreen.route);
+  }
 }

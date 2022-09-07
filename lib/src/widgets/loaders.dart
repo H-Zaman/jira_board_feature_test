@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Loader extends StatelessWidget {
-  const Loader({Key? key}) : super(key: key);
+  final Color? color;
+  const Loader({Key? key, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        color: Colors.white
+        color: color ?? Colors.white
       ),
     );
   }
@@ -48,6 +49,55 @@ class LoadingBars extends StatelessWidget {
 
           ]
       ),
+    );
+  }
+}
+
+class OverlayLoader extends StatelessWidget {
+  final bool loading;
+  final Widget child;
+  final String? text;
+  const OverlayLoader({Key? key, required this.loading, required this.child, this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        child,
+        if(loading) Positioned(
+          top: 0,
+          right: 0,
+          left: 0,
+          bottom: 0,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            color: loading ? Colors.black.withOpacity(.6) : Colors.transparent,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Loader(),
+                if(text != null) Material(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Text(
+                      text!,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 2,
+                        fontSize: 16
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
+          )
+        ),
+      ],
     );
   }
 }
