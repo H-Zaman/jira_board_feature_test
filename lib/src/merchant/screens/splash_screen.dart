@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
+import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
 import 'package:ordermanagement/src/merchant/screens/home_screen.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
 
@@ -18,17 +19,21 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  final _userController = UserController.get;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   if(AuthController.get.token != null){
-  //     Future.delayed(Duration(milliseconds: 100),(){
-  //       Get.offAllNamed(HomeBoardScreen.route);
-  //     });
-  //   }
-  // }
+  @override
+  void initState() {
+    super.initState();
+    if(AuthController.get.token != null){
+      _userController.getSetUser().then((user){
+        if(user != null){
+          Future.delayed(Duration(milliseconds: 100),(){
+            Get.offAllNamed(HomeBoardScreen.route);
+          });
+        }
+      });
+    }
+  }
   
   @override
   Widget build(BuildContext context) {

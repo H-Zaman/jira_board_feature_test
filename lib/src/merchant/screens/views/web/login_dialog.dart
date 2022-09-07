@@ -7,19 +7,27 @@ import 'package:ordermanagement/src/utilities/helper/text_validators.dart';
 import 'package:ordermanagement/src/utilities/resources/_resources.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
 
-class LoginDialogWeb extends StatelessWidget {
+class LoginDialogWeb extends StatefulWidget {
   const LoginDialogWeb({Key? key}) : super(key: key);
 
   @override
+  State<LoginDialogWeb> createState() => _LoginDialogWebState();
+}
+
+class _LoginDialogWebState extends State<LoginDialogWeb> {
+
+  final _authController = AuthController.get;
+
+  final GlobalKey<FormState> key = GlobalKey();
+  final userNameController = TextEditingController(text: 'smkma');
+  final passwordController = TextEditingController(text: '123456');
+
+  bool loading = false;
+
+  String? errorMsg;
+
+  @override
   Widget build(BuildContext context) {
-
-    final _authController = AuthController.get;
-
-    final GlobalKey<FormState> key = GlobalKey();
-    final userNameController = TextEditingController(text: 'smkma');
-    final passwordController = TextEditingController(text: '123456');
-
-    bool loading = false;
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6),
@@ -89,35 +97,53 @@ class LoginDialogWeb extends StatelessWidget {
                           ),
                           const SizedBox(height: 32),
 
+                          AnimatedCrossFade(
+                            firstChild: SizedBox(),
+                            secondChild: Padding(
+                              padding: EdgeInsets.only(
+                                  bottom: 32
+                              ),
+                              child: Center(
+                                child: Text(
+                                  errorMsg ?? '',
+                                  style: TextStyle(
+                                    color: Colors.red
+                                  ),
+                                ),
+                              ),
+                            ),
+                            crossFadeState: errorMsg == null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                            duration: Duration(milliseconds: 200)
+                          ),
+
                           SizedBox(
                             width: 180,
-                            child: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
-                              return CButton(
-                                loading: loading,
-                                onPressed: () async{
+                            child: CButton(
+                              loading: loading,
+                              onPressed: () async{
 
-                                  if(!key.currentState!.validate()) return ;
+                                if(!key.currentState!.validate()) return ;
 
-                                  setState((){
-                                    loading = true;
-                                  });
+                                setState((){
+                                  loading = true;
+                                  this.errorMsg = null;
+                                });
 
-                                  final errorMsg = await _authController.login(userNameController.text, passwordController.text);
+                                final errorMsg = await _authController.login(userNameController.text, passwordController.text);
 
-                                  if(errorMsg != null){
+                                if(errorMsg != null){
+                                  this.errorMsg = errorMsg;
+                                }else{
+                                  Get.offAllNamed(HomeBoardScreen.route);
+                                }
 
-                                  }else{
-                                    Get.offAllNamed(HomeBoardScreen.route);
-                                  }
+                                setState((){
+                                  loading = false;
+                                });
 
-                                  setState((){
-                                    loading = false;
-                                  });
-
-                                },
-                                label: Translate.login.tr.toUpperCase(),
-                              );
-                            }),
+                              },
+                              label: Translate.login.tr.toUpperCase(),
+                            ),
                           )
 
                         ],

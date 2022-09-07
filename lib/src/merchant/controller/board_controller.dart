@@ -14,6 +14,7 @@ class BoardController extends GetxController{
   bool get loading => _loading.value;
 
   RxList<ColumnModel> columns = RxList();
+  RxList<CardModel> cards = RxList();
 
   @override
   void onInit() {
@@ -29,7 +30,15 @@ class BoardController extends GetxController{
     _loading(false);
   }
 
-  Future<void> getAllColumns() async => columns(await _repo.getAllColumns());
+  Future<void> getAllColumns() async {
+    columns(await _repo.getAllColumns());
+
+    columns.sort((a,b) => a.index.compareTo(b.index));
+    columns.first.isFirstColumn = true;
+    columns.last.isLastColumn = true;
+  }
+
+  Future<void> getAllCards() async => cards(await _repo.getAllCards());
 
 
 

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:ordermanagement/src/merchant/model/user.dart';
 import 'package:ordermanagement/src/merchant/repository/auth.dart';
+import 'package:ordermanagement/src/utilities/api/_api.dart';
 import 'package:ordermanagement/src/utilities/local_storage.dart';
 import 'user_controller.dart';
 
@@ -19,9 +21,13 @@ class AuthController extends GetxController{
 
   Future<String?> login(String userName, String password) async{
     final res = await _authRepo.logIn(userName, password);
-    if(res.error) return res.message;
+    if(res.error) {
+      EResponse? error = res.data == null ? null : res.data as EResponse;
+      return error == null ? res.message : error.res;
+    }
 
     _localStorage.saveToken(res.token!);
+    _user.user = User.fromJson(res.data['profile']);
 
     return null;
   }

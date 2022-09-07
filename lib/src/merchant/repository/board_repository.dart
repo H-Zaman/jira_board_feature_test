@@ -1,3 +1,4 @@
+import 'package:ordermanagement/src/merchant/model/card_model.dart';
 import 'package:ordermanagement/src/merchant/model/column_model.dart';
 import 'package:ordermanagement/src/utilities/api/_api.dart';
 
@@ -23,8 +24,13 @@ class BoardRepo{
     return res.error;
   }
 
-  getAllCards() async{
-    final res = await Api.get(Endpoints.user('I22942145370'));
+  Future<List<CardModel>> getAllCards() async{
+
+    final res = await Api.get(Endpoints.cards);
+
+    if(res.error) return [];
+
+    return List<CardModel>.from(res.data['queue-list'].map((column) => CardModel.fromJson(column)));
 
   }
 

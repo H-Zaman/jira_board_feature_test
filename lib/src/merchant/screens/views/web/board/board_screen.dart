@@ -90,17 +90,22 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
         ),
 
         /// COLUMNS
+        // Expanded(
+        //   child: Scrollbar(
+        //     controller: _scrollController,
+        //     interactive: true,
+        //     thickness: 14,
+        //     thumbVisibility: true,
+        //     trackVisibility: true,
+        //     scrollbarOrientation: ScrollbarOrientation.bottom,
+        //     child: BoardView(
+        //       scrollController: _scrollController
+        //     ),
+        //   ),
+        // )
         Expanded(
-          child: Scrollbar(
-            controller: _scrollController,
-            interactive: true,
-            thickness: 14,
-            thumbVisibility: true,
-            trackVisibility: true,
-            scrollbarOrientation: ScrollbarOrientation.bottom,
-            child: BoardView(
-              scrollController: _scrollController
-            ),
+          child: BoardView(
+            // scrollController: _scrollController
           ),
         )
       ],

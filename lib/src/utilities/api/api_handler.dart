@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as Get;
 import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
+import 'package:ordermanagement/src/merchant/screens/splash_screen.dart';
 import 'package:ordermanagement/src/utilities/logger.dart';
 
 import '_api.dart';
@@ -67,30 +69,32 @@ class Api{
     }
   }
 
-  static String _processErrorMessage(dynamic error){
+  static AResponse _processError(dynamic error, String route){
 
     String errorMsg = '';
 
     if(error is DioError){
       if(error.type == DioErrorType.response){
-        return error.error;
-      }else if(error.response!.statusCode == 503){
-        errorMsg += 'Server maintenance';
-        return errorMsg;
+        if(error.response!.data == null) errorMsg = error.error;
+        errorMsg = error.response!.data['response_data']['message'];
       }else if(error.type == DioErrorType.connectTimeout){
         errorMsg += 'Request timed out';
-      } else if(error.response!.statusCode! >= 400){
-        try{
-          errorMsg += error.response!.data['detail'];
-        }catch(e){
-          errorMsg += error.response!.toString();
-        }
+      }else if(error.response!.statusCode == 10000){
+        //TODO auth error
+        Get.Get.offAllNamed(SplashScreen.route);
       }
-
-      return errorMsg;
+    }else{
+      errorMsg =  error.toString();
     }
 
-    return error.toString();
+
+    Log.e(errorMsg, '**********$route FAILED**********');
+    return AResponse(
+      error: true,
+      message: errorMsg,
+      data: error is DioError && error.response!.data != null ? EResponse.fromJson(error.response!.data['response_data']) : null
+    );
+
   }
 
   static Future<AResponse> get(
@@ -117,9 +121,7 @@ class Api{
       return _processData(route, apiResponse);
 
     }catch(e){
-      final errorMsg = _processErrorMessage(e);
-      Log.e(errorMsg, '**********$route FAILED**********');
-      return AResponse(error: true,message: errorMsg);
+      return _processError(e, route);
     }
   }
 
@@ -150,9 +152,7 @@ class Api{
       return _processData(route, apiResponse);
 
     }catch(e){
-      final errorMsg = _processErrorMessage(e);
-      Log.e(errorMsg, '**********$route FAILED**********');
-      return AResponse(error: true,message: errorMsg);
+      return _processError(e, route);
     }
   }
 
@@ -183,9 +183,7 @@ class Api{
       return _processData(route,apiResponse);
 
     }catch(e){
-      final errorMsg = _processErrorMessage(e);
-      Log.e(errorMsg, '**********$route FAILED**********');
-      return AResponse(error: true,message: errorMsg);
+      return _processError(e, route);
     }
   }
 
@@ -216,9 +214,7 @@ class Api{
       return _processData(route,apiResponse);
 
     }catch(e){
-      final errorMsg = _processErrorMessage(e);
-      Log.e(errorMsg, '**********$route FAILED**********');
-      return AResponse(error: true,message: errorMsg);
+      return _processError(e, route);
     }
   }
 
@@ -249,9 +245,7 @@ class Api{
       return _processData(route, apiResponse);
 
     }catch(e){
-      final errorMsg = _processErrorMessage(e);
-      Log.e(errorMsg, '**********$route FAILED**********');
-      return AResponse(error: true,message: errorMsg);
+      return _processError(e, route);
     }
   }
 }

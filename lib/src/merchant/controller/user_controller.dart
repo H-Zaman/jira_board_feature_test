@@ -9,9 +9,7 @@ class UserController extends GetxController{
 
   Rxn<User> _user = Rxn();
   User get user => _user.value!;
+  set user (User user)=> _user(user);
 
-  // Future<void> getUser() async{
-  //   _user(await _repo.getUser());
-  // }
-
+  Future<User?> getSetUser() async => _user(await _repo.getUser());
 }
