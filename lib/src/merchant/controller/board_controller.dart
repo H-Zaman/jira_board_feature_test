@@ -54,22 +54,6 @@ class BoardController extends GetxController{
     _loading(false);
   }
 
-  RxBool flagSort = RxBool(false);
-  void sortByFlagged() {
-    flagSort.value = !flagSort.value;
-    if(flagSort.value){
-      cards.sort((a,b){
-        if(b.flag){
-          return 1;
-        }
-        return -1;
-      });
-    }else{
-      cards.sort((a,b) => a.updatedAt.compareTo(b.updatedAt));
-    }
-  }
-
-
 
 
 

@@ -7,6 +7,12 @@ class ColumnModel{
   bool isLastColumn;
   bool notify;
 
+  bool? _sortByFlag;
+  bool get sortByFlag {
+    return _sortByFlag == null ? false : _sortByFlag!;
+  }
+  set sortByFlag (bool value) => _sortByFlag = value;
+
   ColumnModel({
     required this.index,
     required this.name,

@@ -52,12 +52,31 @@ class _BoardViewState extends State<BoardView> {
                 ),
               ),
             ),
-            children: _controller.columns.map((column) => DragAndDropList(
-              header: _ColumnHeader(column : column),
-              contentsWhenEmpty: _EmptyColumn(),
-              children: _controller.cards.where((card) => card.column == column.name).map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
-              canDrag: false,
-            )).toList(),
+            children: _controller.columns.map((column) {
+
+              List<CardModel> cards = _controller.cards.where((card) => card.column == column.name).toList();
+
+              if(column.sortByFlag){
+                cards.sort((a,b){
+                  if(b.flag){
+                    return 1;
+                  }
+                  return -1;
+                });
+              }else{
+                cards.sort((a,b) => a.updatedAt.compareTo(b.updatedAt));
+              }
+
+              return DragAndDropList(
+                header: _ColumnHeader(
+                  column : column,
+                  setter: setState
+                ),
+                contentsWhenEmpty: _EmptyColumn(),
+                children: cards.map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
+                canDrag: false,
+              );
+            }).toList(),
             onItemReorder: _controller.onItemReorder,
             onListReorder: _controller.onListReorder,
           )),
@@ -69,7 +88,8 @@ class _BoardViewState extends State<BoardView> {
 
 class _ColumnHeader extends StatelessWidget {
   final ColumnModel column;
-  const _ColumnHeader({Key? key, required this.column}) : super(key: key);
+  final Function(void Function()) setter;
+  const _ColumnHeader({Key? key, required this.column, required this.setter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -108,23 +128,24 @@ class _ColumnHeader extends StatelessWidget {
                       Icons.notification_add_outlined
                     ),
                   ),
-                  Obx(()=>Card(
+                  Card(
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(111)
                     ),
-                    color: _controller.flagSort.value ? Colors.green : Colors.white,
+                    color: column.sortByFlag ? Colors.green : Colors.white,
                     child: IconButton(
                       constraints: BoxConstraints(),
                       icon: Icon(
                         Icons.warning_amber_rounded,
-                        color: _controller.flagSort.value ? Colors.white : Colors.red,
+                        color: column.sortByFlag ? Colors.white : Colors.red,
                       ),
-                      onPressed: () async{
-                        _controller.sortByFlagged();
+                      onPressed: () {
+                        column.sortByFlag = !column.sortByFlag;
+                        setter.call((){});
                       },
                     ),
-                  )),
+                  ),
                   if(column.isFirstColumn) Card(
                     margin: EdgeInsets.only(left: 12),
                     shape: RoundedRectangleBorder(
