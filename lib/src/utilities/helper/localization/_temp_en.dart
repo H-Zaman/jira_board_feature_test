@@ -33,5 +33,6 @@ Map<String, String> enLang = {
   'phone_number' : 'Phone number',
   'cancel' : 'Cancel',
   'add' : 'Add',
+  'profile' : 'Profile',
   '' : '',
 };

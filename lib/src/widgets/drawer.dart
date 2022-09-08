@@ -225,6 +225,13 @@ class _WebDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   DrawerListTile(
+                    onPressed: (){
+                      if(!_userController.loading) _homeController.scaffoldKey.currentState!.openEndDrawer();
+                    },
+                    icon: Icons.person,
+                    label: 'Profile',
+                  ),
+                  DrawerListTile(
                     icon: Icons.info_outline_rounded,
                     label: 'FAQ',
                   ),

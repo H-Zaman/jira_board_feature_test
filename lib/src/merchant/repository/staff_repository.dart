@@ -8,24 +8,4 @@ class StaffRepo{
 
     return List<User>.from(res.data.map((staff) => User.fromJson(staff)));
   }
-
-  Future<AResponse> addStaff({
-    required String name,
-    required String email,
-    required String username,
-    required String phone,
-    required String password,
-  }) async{
-    final data = {
-      "email": email,
-      "image-id": '',
-      "name": name,
-      "password": password,
-      "phone-number": phone,
-      "user-role": "STAFF",
-      "username": username
-    };
-
-    return await Api.post(Endpoints.users, data: data);
-  }
 }

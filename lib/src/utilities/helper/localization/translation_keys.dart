@@ -41,5 +41,6 @@ class Translate{
   static const String phone_number = 'phone_number';
   static const String cancel = 'cancel';
   static const String add = 'add';
+  static const String profile = 'profile';
 
 }
