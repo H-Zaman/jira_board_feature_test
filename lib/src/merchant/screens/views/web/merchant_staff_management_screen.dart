@@ -31,7 +31,7 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
 
           /// HEADER
           TopAppBarWeb(
-            actions: [
+            menu: [
               PopupMenuItem(
                 value: 1,
                 child: Text(

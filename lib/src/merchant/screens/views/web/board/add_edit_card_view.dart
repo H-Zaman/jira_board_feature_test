@@ -5,13 +5,13 @@ import 'package:ordermanagement/src/merchant/model/card_model.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
 
 class AddEditCardView extends StatelessWidget {
-  final CardModel? item;
-  const AddEditCardView({Key? key, this.item}) : super(key: key);
+  final CardModel? card;
+  const AddEditCardView({Key? key, this.card}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    final bool isUpdate = item != null;
+    final bool isUpdate = card != null;
 
     final _controller = BoardController.get;
 
@@ -20,9 +20,9 @@ class AddEditCardView extends StatelessWidget {
     bool flag = false;
 
     if(isUpdate) {
-      _cardController.text = item!.id;
-      _commentController.text = item!.comment;
-      flag = item!.flag;
+      _cardController.text = card!.id;
+      _commentController.text = card!.comment;
+      flag = card!.flag;
     }
 
     return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {

@@ -208,7 +208,7 @@ class _ColumnCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async{
-        await Get.dialog(AddEditCardView(item: item));
+        await Get.dialog(AddEditCardView(card: item));
       },
       child: DeviceHelper(
         builder: (deviceType)=>Obx(()=>OverlayLoader(

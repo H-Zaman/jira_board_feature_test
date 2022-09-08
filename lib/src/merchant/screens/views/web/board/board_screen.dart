@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
 import 'package:ordermanagement/src/merchant/screens/views/board_view.dart';
+import 'package:ordermanagement/src/merchant/screens/views/card_search_delegate.dart';
 import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
 import 'package:ordermanagement/src/merchant/screens/views/web/top_app_bar_web.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
@@ -30,6 +31,19 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
         /// HEADER
         TopAppBarWeb(
           actions: [
+            IconButton(
+              onPressed: () async{
+                final card = await showSearch(context: context, delegate: CardSearch());
+                if(card != null){
+                  await Get.dialog(AddEditCardView(card: card));
+                }
+              },
+              icon: Icon(
+                Icons.search
+              )
+            )
+          ],
+          menu: [
             PopupMenuItem(
               value: 1,
               child: Text(
