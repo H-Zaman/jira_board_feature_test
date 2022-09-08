@@ -78,7 +78,11 @@ class AddEditCardView extends StatelessWidget {
 
                     if(isUpdate){
 
-                      // _controller
+                      // await _controller.updateCard(
+                      //   cardId: _cardController.text,
+                      //   flag: flag,
+                      //   comment: _commentController.text,
+                      // );
 
                     }else{
                       await _controller.addCard(
@@ -86,9 +90,9 @@ class AddEditCardView extends StatelessWidget {
                         flag: flag,
                         comment: _commentController.text
                       );
-                      Get.back();
                     }
 
+                    Get.back();
                   }
                 },
               ),

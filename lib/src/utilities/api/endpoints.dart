@@ -11,6 +11,7 @@ class Endpoints{
 
   static const String columns = '/merchant/state';
   static const String cards = '/merchant/queues';
+  static const String card = '/merchant/queue';
   static const String staffList = '/merchant/user';
 
   static const String adminMerchants = '/admin/merchants';

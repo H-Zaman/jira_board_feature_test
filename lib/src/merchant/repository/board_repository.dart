@@ -46,7 +46,7 @@ class BoardRepo{
       "queue-id": cardId
     };
 
-    final res = await Api.post(Endpoints.cards, data: data);
+    final res = await Api.post(Endpoints.card, data: data);
 
     return res.error;
   }
