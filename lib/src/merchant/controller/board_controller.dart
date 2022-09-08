@@ -21,11 +21,11 @@ class BoardController extends GetxController{
     getData();
   }
 
-  Future<void> getData() async{
-    _loading(true);
-    await getAllColumns();
+  Future<void> getData([bool load = true]) async{
+    if(load) _loading(true);
     await getAllCards();
-    _loading(false);
+    await getAllColumns();
+    if(load) _loading(false);
   }
 
   Future<void> getAllColumns() async {
@@ -34,6 +34,11 @@ class BoardController extends GetxController{
     columns.sort((a,b) => a.index.compareTo(b.index));
     columns.first.isFirstColumn = true;
     columns.last.isLastColumn = true;
+
+    columns.forEach((column) {
+      column.cards = cards.where((card) => card.column == column.name).toList();
+    });
+
   }
 
   Future<void> getAllCards() async => cards(await _repo.getAllCards());
@@ -54,24 +59,21 @@ class BoardController extends GetxController{
     _loading(false);
   }
 
-
-
-
-
-
-
-
-  int itemID = 14;
-
-
-
-  void onItemReorder(int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
-    // CardModel movedItem = columns[oldListIndex].items.removeAt(oldItemIndex);
-    // movedItem.column = columns[newListIndex].index;
-    // // make newItemIndex  0 if always add to first
-    // columns[newListIndex].items.insert(newItemIndex, movedItem);
-    // columns.refresh();
+  void onItemReorder(oldItemIndex, oldListIndex, _, newListIndex) async{
+    if(oldListIndex == newListIndex) return ;
+    CardModel movedItem = columns[oldListIndex].cards.removeAt(oldItemIndex);
+    columns[newListIndex].cards.insert(0, movedItem);
+    columns.refresh();
+    await _repo.moveCard(
+      movedItem,
+      columns[newListIndex]
+    );
+    await getData(false);
+    columns.refresh();
   }
+
+
+
 
   void onListReorder(int oldListIndex, int newListIndex) {
     ColumnModel movedList = columns.removeAt(oldListIndex);

@@ -51,4 +51,13 @@ class BoardRepo{
     return res.error;
   }
 
+  Future<void> moveCard(CardModel movedItem, ColumnModel movedColumn) async{
+    final data = {
+      "new-status": movedColumn.name,
+      "queue-id": movedItem.id
+    };
+
+    await Api.patch(Endpoints.updateCardStatus, data: data);
+  }
+
 }

@@ -1,3 +1,5 @@
+import 'package:ordermanagement/src/merchant/model/card_model.dart';
+
 class ColumnModel{
   int index;
   String name;
@@ -6,6 +8,7 @@ class ColumnModel{
   bool isFirstColumn;
   bool isLastColumn;
   bool notify;
+  List<CardModel> cards;
 
   bool? _sortByFlag;
   bool get sortByFlag {
@@ -21,6 +24,7 @@ class ColumnModel{
     this.notify = false,
     this.isFirstColumn = false,
     this.isLastColumn = false,
+    this.cards = const []
   });
 
   factory ColumnModel.fromJson(Map<String, dynamic> json) => ColumnModel(

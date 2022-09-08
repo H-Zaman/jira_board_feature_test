@@ -54,17 +54,15 @@ class _BoardViewState extends State<BoardView> {
             ),
             children: _controller.columns.map((column) {
 
-              List<CardModel> cards = _controller.cards.where((card) => card.column == column.name).toList();
-
               if(column.sortByFlag){
-                cards.sort((a,b){
+                column.cards.sort((a,b){
                   if(b.flag){
                     return 1;
                   }
                   return -1;
                 });
               }else{
-                cards.sort((a,b) => a.updatedAt.compareTo(b.updatedAt));
+                column.cards.sort((a,b) => a.updatedAt.compareTo(b.updatedAt));
               }
 
               return DragAndDropList(
@@ -73,7 +71,7 @@ class _BoardViewState extends State<BoardView> {
                   setter: setState
                 ),
                 contentsWhenEmpty: _EmptyColumn(),
-                children: cards.map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
+                children: column.cards.map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
                 canDrag: false,
               );
             }).toList(),
