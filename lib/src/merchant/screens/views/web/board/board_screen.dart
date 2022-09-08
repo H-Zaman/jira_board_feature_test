@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
 import 'package:ordermanagement/src/merchant/screens/views/board_view.dart';
+import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
 import 'package:ordermanagement/src/merchant/screens/views/web/top_app_bar_web.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
@@ -46,13 +47,12 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
               ),
             )
           ],
-          onAction: (val){
-            _controller.allCards();
-            // if(val == 1){
-            //   _controller.addEditColumn();
-            // }else if(val == 2){
-            //   _controller.addCard();
-            // }
+          onAction: (val) async{
+            if(val == 1){
+              _controller.addEditColumn();
+            }else if(val == 2){
+              await Get.dialog(AddEditCardView());
+            }
           },
         ),
 

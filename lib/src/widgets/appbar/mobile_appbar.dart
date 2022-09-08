@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
+import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 
 class MobileAppbar extends StatelessWidget implements PreferredSizeWidget{
@@ -60,7 +61,7 @@ class MobileAppbar extends StatelessWidget implements PreferredSizeWidget{
             if(val == 1){
               BoardController.get.addEditColumn();
             }else if(val == 2){
-              BoardController.get.addCard();
+              await Get.dialog(AddEditCardView());
             }
           },
           itemBuilder: (_) => [

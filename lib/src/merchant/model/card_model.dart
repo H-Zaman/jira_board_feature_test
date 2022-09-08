@@ -4,6 +4,7 @@ class CardModel{
   String comment;
   String qr;
   String user;
+  bool flag;
   DateTime updatedAt;
 
   CardModel({
@@ -12,6 +13,7 @@ class CardModel{
     required this.comment,
     required this.qr,
     required this.user,
+    required this.flag,
     required this.updatedAt,
   });
 
@@ -21,6 +23,7 @@ class CardModel{
     comment: json['comment'],
     qr: json['customer-qr-link'],
     user: json['user-name'],
+    flag: json['flag'],
     updatedAt: DateTime.parse(json['updated-at']),
   );
 }

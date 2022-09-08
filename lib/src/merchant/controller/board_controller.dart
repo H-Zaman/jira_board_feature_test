@@ -39,7 +39,21 @@ class BoardController extends GetxController{
 
   Future<void> getAllCards() async => cards(await _repo.getAllCards());
 
-
+  Future<void> addCard({
+    required String cardId,
+    String? comment,
+    bool? flag
+  }) async {
+    _loading(true);
+    await _repo.addCard(
+      cardId: cardId,
+      column: columns.first.name,
+      comment: comment,
+      flag: flag
+    );
+    await getAllCards();
+    _loading(false);
+  }
 
 
 
@@ -66,18 +80,6 @@ class BoardController extends GetxController{
     ColumnModel movedList = columns.removeAt(oldListIndex);
     columns.insert(newListIndex, movedList);
     columns.refresh();
-  }
-
-  Future<void> addCard([ColumnModel? column]) async{
-    int? columnId;
-
-    if(column != null){
-      columnId = column.index;
-    }
-
-    await Get.dialog(AddEditCardView(
-      columnId: columnId
-    ));
   }
 
   Future<void> addEditColumn([ColumnModel? column]) async => await Get.dialog(AddEditColumnView(column: column));

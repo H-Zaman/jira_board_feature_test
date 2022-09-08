@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:ordermanagement/src/merchant/controller/staff_controller.dart';
 import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
 import 'package:ordermanagement/src/merchant/model/user.dart';
@@ -64,8 +63,8 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
                   child: Text(
                     'Staff List',
                     style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w500
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500
                     ),
                   ),
                 ),
@@ -89,8 +88,17 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
                         leading: Icon(
                           Icons.edit
                         ),
-                        title: Text(
-                          staff.name
+                        title: Row(
+                          children: [
+                            Text(
+                              staff.name
+                            ),
+                            SizedBox(width: 12),
+
+                            if(staff.userType == UserType.MERCHANT) Text(
+                              staff.userType.name
+                            )
+                          ],
                         ),
                         subtitle: Text(
                           staff.email
@@ -124,13 +132,15 @@ class _AddEditStaffView extends StatelessWidget {
     final _staffController = StaffController.get;
     final GlobalKey<FormState> formKey = GlobalKey();
 
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final phoneController = TextEditingController();
+    final userNameController = TextEditingController();
+    final passwordController = TextEditingController();
+    Rxn<String> errorMsg = Rxn();
+
     return Obx((){
       final bool isUpdate = _staffController.selectedStaff != null;
-      final nameController = TextEditingController();
-      final emailController = TextEditingController();
-      final phoneController = TextEditingController();
-      final userNameController = TextEditingController();
-      final passwordController = TextEditingController();
 
       if(isUpdate){
         nameController.text = _staffController.selectedStaff!.name;
@@ -226,6 +236,15 @@ class _AddEditStaffView extends StatelessWidget {
                   SizedBox(height: 14),
                 ],
               ),
+              SizedBox(height: 24),
+              if(errorMsg.value != null) Center(
+                child: Text(
+                  errorMsg.value!,
+                  style: TextStyle(
+                    color: Colors.red
+                  ),
+                ),
+              ),
               Spacer(),
 
 
@@ -244,22 +263,30 @@ class _AddEditStaffView extends StatelessWidget {
                     width: 140,
                     child: CButton(
                       loading: _staffController.addEditLoading,
-                      onPressed: (){
+                      onPressed: () async{
                         if(!formKey.currentState!.validate()) return ;
+                        errorMsg.value = null;
                         if(isUpdate){
-                          _staffController.updateStaff(
+                          final res = await _staffController.updateStaff(
                             name: nameController.text /*== _staffController.selectedStaff!.name ? null : nameController.text*/,
                             email: emailController.text /*== _staffController.selectedStaff!.email ? null : emailController.text*/,
                             phone: phoneController.text /*== _staffController.selectedStaff!.phoneNumber ? null : phoneController.text*/,
+                            uid: _staffController.selectedStaff!.userId
                           );
+                          if(res.error){
+                            errorMsg(res.message);
+                          }
                         }else{
-                          _staffController.addStaff(
+                          final res = await _staffController.addStaff(
                             name: nameController.text,
                             email: emailController.text,
                             phone: phoneController.text,
                             username: userNameController.text,
                             password: passwordController.text
                           );
+                          if(res.error){
+                            errorMsg(res.message);
+                          }
                         }
                       },
                       label: isUpdate ? Translate.update.tr : Translate.add.tr,

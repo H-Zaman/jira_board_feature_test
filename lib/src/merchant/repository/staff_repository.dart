@@ -9,7 +9,7 @@ class StaffRepo{
     return List<User>.from(res.data.map((staff) => User.fromJson(staff)));
   }
 
-  Future<bool> addStaff({
+  Future<AResponse> addStaff({
     required String name,
     required String email,
     required String username,
@@ -26,24 +26,22 @@ class StaffRepo{
       "username": username
     };
 
-    final res = await Api.post(Endpoints.staffList, data: data);
-
-    return res.error;
+    return await Api.post(Endpoints.staffList, data: data);
   }
 
-  Future<bool> updateStaff({
+  Future<AResponse> updateStaff({
     String? name,
     String? email,
     String? phone,
+    required String uid
   }) async{
     final data = {
       if(name != null) 'name' : name,
       if(email != null) 'email' : email,
       if(phone != null) 'phone-number' : phone,
+      if(phone != null) 'user-id' : uid,
     };
 
-    final res = await Api.patch(Endpoints.staffList, data: data);
-
-    return res.error;
+    return await Api.patch(Endpoints.staffList, data: data);
   }
 }

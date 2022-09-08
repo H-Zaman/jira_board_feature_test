@@ -54,7 +54,7 @@ class Api{
       }
 
       return AResponse(
-        error: apiResponse.data['response_status'] != 1,
+        error: apiResponse.data['response_status'] == 0,
         message: apiResponse.data['response_message'],
         data: apiResponse.data['response_data'] == null ? apiResponse.data : apiResponse.data['response_data'],
         token: authToken
@@ -64,7 +64,7 @@ class Api{
       /// logging result
       Log.e(route, apiResponse.statusMessage);
       return AResponse(
-        error: true,
+        error: apiResponse.data['response_status'] == 0,
         message: apiResponse.data['response_message'],
       );
     }

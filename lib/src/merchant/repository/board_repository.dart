@@ -33,4 +33,22 @@ class BoardRepo{
     return List<CardModel>.from(res.data.map((column) => CardModel.fromJson(column)));
   }
 
+  Future<bool> addCard({
+    String? comment,
+    required String column,
+    bool? flag,
+    required String cardId
+  }) async{
+    final data = {
+      "comment": comment ?? '',
+      "current-state": column,
+      "flag": flag ?? true,
+      "queue-id": cardId
+    };
+
+    final res = await Api.post(Endpoints.cards, data: data);
+
+    return res.error;
+  }
+
 }

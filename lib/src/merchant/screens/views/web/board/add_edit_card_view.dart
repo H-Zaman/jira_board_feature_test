@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
 import 'package:ordermanagement/src/merchant/model/card_model.dart';
+import 'package:ordermanagement/src/widgets/_widgets.dart';
 
 class AddEditCardView extends StatelessWidget {
   final int? columnId;
@@ -13,54 +14,51 @@ class AddEditCardView extends StatelessWidget {
 
     final bool isUpdate = item != null;
 
-    int? columnId = this.columnId;
     final _controller = BoardController.get;
 
-    final _textController = TextEditingController();
+    final _cardController = TextEditingController();
+    final _commentController = TextEditingController();
+    bool flag = false;
 
-    if(isUpdate) _textController.text = item!.comment;
+    if(isUpdate) {
+      _cardController.text = item!.id;
+      _commentController.text = item!.comment;
+      flag = item!.flag;
+    }
 
     return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
       return AlertDialog(
         title: Text(
           '${isUpdate ? 'Update' : 'Create'} card'
         ),
-        content: TextField(
-          controller: _textController,
-        ),
-        actions: [
-
-          Wrap(
-            children: _controller.columns.map((column) => GestureDetector(
-              onTap: (){
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CTextField(
+              controller: _cardController,
+              hint: 'Enter card id',
+              title: 'Card Id',
+            ),
+            CTextField(
+              controller: _commentController,
+              hint: 'Enter comment',
+              title: 'Comment',
+            ),
+            CheckboxListTile(
+              value: flag,
+              onChanged: (value){
+                if(value == null) return ;
                 setState((){
-                  columnId = column.index;
+                  flag = value;
                 });
               },
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 2),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                          column.name
-                      ),
-                      Checkbox(
-                          value: columnId == column.index,
-                          onChanged: (newValue){
-                            setState((){
-                              columnId = column.index;
-                            });
-                          }
-                      )
-                    ],
-                  ),
-                ),
+              title: Text(
+                'Flag'
               ),
-            )).toList(),
-          ),
-
+            )
+          ],
+        ),
+        actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -74,44 +72,24 @@ class AddEditCardView extends StatelessWidget {
                 child: Text(
                   isUpdate? 'Update' : 'Add'
                 ),
-                onPressed: (){
+                onPressed: () async{
 
-                  // CardModel? data;
-                  //
-                  // if(_textController.text.isNotEmpty){
-                  //
-                  //   final insertColumnIndex = columnId == null ? 0 : _controller.columns.indexWhere((column) => column.index == columnId);
-                  //
-                  //   if(isUpdate){
-                  //
-                  //     final colIndex = _controller.columns.indexWhere((column) => column.index == item!.column);
-                  //     final itemIndex = _controller.columns[colIndex].items.indexWhere((item) => item.id == this.item!.id);
-                  //
-                  //     if(columnId != this.item!.column){
-                  //       _controller.columns[colIndex].items.removeAt(itemIndex);
-                  //       _controller.columns[insertColumnIndex].items.add(
-                  //         this.item!
-                  //           ..column = columnId!
-                  //           ..comment = _textController.text
-                  //       );
-                  //     }else{
-                  //       _controller.columns[insertColumnIndex].items[itemIndex]
-                  //         ..comment = _textController.text;
-                  //     }
-                  //
-                  //   }else{
-                  //     _controller.columns[insertColumnIndex].items.add(CardModel(
-                  //       id: _controller.itemID,
-                  //       column: _controller.columns[insertColumnIndex].index,
-                  //       comment: _textController.text
-                  //     ));
-                  //     _controller.itemID++;
-                  //   }
-                  //
-                  //
-                  //   _controller.columns.refresh();
-                  //   Get.back(result: data);
-                  // }
+                  if(_cardController.text.isNotEmpty){
+
+                    if(isUpdate){
+
+                      // _controller
+
+                    }else{
+                      await _controller.addCard(
+                        cardId: _cardController.text,
+                        flag: flag,
+                        comment: _commentController.text
+                      );
+                      Get.back();
+                    }
+
+                  }
                 },
               ),
             ],

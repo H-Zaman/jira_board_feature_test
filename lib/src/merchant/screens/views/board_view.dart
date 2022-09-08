@@ -4,6 +4,7 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
 import 'package:ordermanagement/src/merchant/model/card_model.dart';
 import 'package:ordermanagement/src/merchant/model/column_model.dart';
+import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
 import 'package:ordermanagement/src/utilities/date_time_extension.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
@@ -129,8 +130,8 @@ class _ColumnHeader extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: deviceType == DeviceType.MOBILE ? 8 : 14),
               height: deviceType == DeviceType.MOBILE ? 42 : 48,
               child: CButton(
-                onPressed: (){
-                  _controller.addCard(column);
+                onPressed: () async{
+                  await Get.dialog(AddEditCardView());
                 },
                 label: 'add new',
                 fontSize: deviceType == DeviceType.MOBILE ? 14 : 16,

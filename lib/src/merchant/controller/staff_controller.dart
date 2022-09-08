@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/model/user.dart';
 import 'package:ordermanagement/src/merchant/repository/staff_repository.dart';
+import 'package:ordermanagement/src/utilities/api/_api.dart';
 
 class StaffController extends GetxController{
   static StaffController get = Get.isRegistered<StaffController>() ? Get.find<StaffController>() : Get.put(StaffController());
@@ -40,24 +41,26 @@ class StaffController extends GetxController{
   }
 
 
-  Future<void> updateStaff({
+  Future<AResponse> updateStaff({
     String? name,
     String? email,
-    String? phone
+    String? phone,
+    required uid
   }) async{
 
     _addEditLoading(true);
-    await _repo.updateStaff(
+    final res = await _repo.updateStaff(
       name: name,
       email: email,
-      phone: phone
+      phone: phone,
+      uid: uid
     );
-    await getData();
+    if(!res.error)await getData();
     _addEditLoading(false);
-
+    return res;
   }
 
-  Future<void> addStaff({
+  Future<AResponse> addStaff({
     required String name,
     required String email,
     required String username,
@@ -65,7 +68,7 @@ class StaffController extends GetxController{
     required String password,
   }) async{
     _addEditLoading(true);
-    await _repo.addStaff(
+    final res = await _repo.addStaff(
       name: name,
       email: email,
       phone: phone,
@@ -74,5 +77,6 @@ class StaffController extends GetxController{
     );
     await getData();
     _addEditLoading(false);
+    return res;
   }
 }
