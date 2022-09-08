@@ -7,6 +7,7 @@ import 'package:ordermanagement/src/merchant/model/column_model.dart';
 import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
 import 'package:ordermanagement/src/utilities/date_time_extension.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
+import 'package:ordermanagement/src/widgets/_widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class BoardView extends StatefulWidget {
@@ -73,6 +74,9 @@ class _BoardViewState extends State<BoardView> {
                 contentsWhenEmpty: _EmptyColumn(),
                 children: column.cards.map((item) => DragAndDropItem(child: _ColumnCard(item: item))).toList(),
                 canDrag: false,
+                footer: column.isFirstColumn && _controller.addCardOngoing ? Loader(
+                  color: Colors.black,
+                ) : null
               );
             }).toList(),
             onItemReorder: _controller.onItemReorder,
@@ -203,118 +207,125 @@ class _ColumnCard extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: (){
-        _controller.editCard(item);
+      onTap: () async{
+        await Get.dialog(AddEditCardView(item: item));
       },
       child: DeviceHelper(
-        builder: (deviceType)=>Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(4),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade300,
-                blurRadius: 2,
-                spreadRadius: 2,
-                offset: Offset(2,2),
-              )
-            ]
-          ),
-          padding: EdgeInsets.all(10),
+        builder: (deviceType)=>Obx(()=>OverlayLoader(
+          loading: _controller.updateCardId.value == item.id,
+          color: Colors.black,
+          shrink: true,
           margin: EdgeInsets.fromLTRB(6, 6, 6, 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      item.id,
-                      style: TextStyle(
-                        fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
-                        fontWeight: FontWeight.w700
+          borderRadius: BorderRadius.circular(4),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(4),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  blurRadius: 2,
+                  spreadRadius: 2,
+                  offset: Offset(2,2),
+                )
+              ]
+            ),
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.fromLTRB(6, 6, 6, 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        item.id,
+                        style: TextStyle(
+                            fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
+                            fontWeight: FontWeight.w700
+                        ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      Get.dialog(AlertDialog(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              onPressed: (){},
-                              icon: Icon(
-                                Icons.print
-                              )
-                            ),
-                            IconButton(
-                              onPressed: (){},
-                              icon: Icon(
-                                Icons.share
-                              )
-                            )
-                          ],
-                        ),
-                        content: Container(
-                          height: Get.height * .2,
-                          width: deviceType == DeviceType.MOBILE ? Get.width * .7 : Get.width * .1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                    GestureDetector(
+                      onTap: (){
+                        Get.dialog(AlertDialog(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Expanded(
-                                child: qrView,
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(
+                                      Icons.print
+                                  )
                               ),
-                              SizedBox(height: 14),
-                              Row(
-                                children: [
-                                  Text(
-                                    'some links'
-                                  ),
-                                ],
+                              IconButton(
+                                  onPressed: (){},
+                                  icon: Icon(
+                                      Icons.share
+                                  )
                               )
                             ],
-                          )
-                        ),
-                      ));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(right: 24, left: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                          ),
+                          content: Container(
+                              height: Get.height * .2,
+                              width: deviceType == DeviceType.MOBILE ? Get.width * .7 : Get.width * .1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: qrView,
+                                  ),
+                                  SizedBox(height: 14),
+                                  Row(
+                                    children: [
+                                      Text(
+                                          'some links'
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                          ),
+                        ));
+                      },
+                      child: Container(
+                          margin: EdgeInsets.only(right: 24, left: 12),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          height: 32,
+                          width: 32,
+                          child: qrView
                       ),
-                      height: 32,
-                      width: 32,
-                      child: qrView
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 8),
-              Text(
-                '${item.user}, ${item.updatedAt.fr}',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey
+                    )
+                  ],
                 ),
-              ),
-              SizedBox(height: 14),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    item.comment
+                SizedBox(height: 8),
+                Text(
+                  '${item.user}, ${item.updatedAt.fr}',
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey
                   ),
-                  if(item.flag) Icon(
-                    Icons.warning_amber_rounded,
-                    color: Colors.red,
-                  )
-                ],
-              ),
-            ],
+                ),
+                SizedBox(height: 14),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        item.comment
+                    ),
+                    if(item.flag) Icon(
+                      Icons.warning_amber_rounded,
+                      color: Colors.red,
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
+        )),
       ),
     );
   }

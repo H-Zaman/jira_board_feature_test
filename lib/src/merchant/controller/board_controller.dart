@@ -12,6 +12,11 @@ class BoardController extends GetxController{
   RxBool _loading = RxBool(false);
   bool get loading => _loading.value;
 
+  RxBool _addCardOngoing = RxBool(false);
+  bool get addCardOngoing => _addCardOngoing.value;
+
+  RxnString updateCardId = RxnString();
+
   RxList<ColumnModel> columns = RxList();
   RxList<CardModel> cards = RxList();
 
@@ -38,7 +43,6 @@ class BoardController extends GetxController{
     columns.forEach((column) {
       column.cards = cards.where((card) => card.column == column.name).toList();
     });
-
   }
 
   Future<void> getAllCards() async => cards(await _repo.getAllCards());
@@ -48,15 +52,30 @@ class BoardController extends GetxController{
     String? comment,
     bool? flag
   }) async {
-    _loading(true);
+    _addCardOngoing(true);
     await _repo.addCard(
       cardId: cardId,
       column: columns.first.name,
       comment: comment,
       flag: flag
     );
-    await getAllCards();
-    _loading(false);
+    await getData(false);
+    _addCardOngoing(false);
+  }
+
+  Future<void> editCard({
+    required String cardId,
+    required String comment,
+    required bool flag
+  }) async {
+    updateCardId(cardId);
+    await _repo.updateCard(
+      cardId: cardId,
+      comment: comment,
+      flag: flag
+    );
+    await getData(false);
+    updateCardId.value = null;
   }
 
   void onItemReorder(oldItemIndex, oldListIndex, _, newListIndex) async{
@@ -82,11 +101,4 @@ class BoardController extends GetxController{
   }
 
   Future<void> addEditColumn([ColumnModel? column]) async => await Get.dialog(AddEditColumnView(column: column));
-
-  Future<void> editCard(CardModel item) async {
-    // await Get.dialog(AddEditCardView(
-    //     columnId: item.column,
-    //     item: item
-    // ));
-  }
 }

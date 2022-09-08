@@ -55,14 +55,26 @@ class LoadingBars extends StatelessWidget {
 
 class OverlayLoader extends StatelessWidget {
   final bool loading;
+  final bool shrink;
   final Widget child;
   final String? text;
-  const OverlayLoader({Key? key, required this.loading, required this.child, this.text}) : super(key: key);
+  final Color? color;
+  final BorderRadius? borderRadius;
+  final EdgeInsets? margin;
+  const OverlayLoader({Key? key,
+    required this.loading,
+    required this.child,
+    this.text,
+    this.shrink = false,
+    this.color,
+    this.borderRadius,
+    this.margin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      fit: StackFit.expand,
+      fit: shrink ? StackFit.loose : StackFit.expand,
       children: [
         child,
         if(loading) Positioned(
@@ -72,12 +84,16 @@ class OverlayLoader extends StatelessWidget {
           bottom: 0,
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            color: loading ? Colors.black.withOpacity(.6) : Colors.transparent,
+            margin: margin,
+            decoration: BoxDecoration(
+              color: loading ? Colors.black.withOpacity(.6) : Colors.transparent,
+              borderRadius: borderRadius
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Loader(),
+                Loader(color: color),
                 if(text != null) Material(
                   color: Colors.transparent,
                   child: Padding(

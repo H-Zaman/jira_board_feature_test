@@ -60,4 +60,16 @@ class BoardRepo{
     await Api.patch(Endpoints.updateCardStatus, data: data);
   }
 
+  Future<bool> updateCard({required String cardId, required String comment, required bool flag}) async{
+    final data = {
+      "comment": comment,
+      "flag": flag,
+      "queue-id": cardId
+    };
+
+    final res = await Api.patch(Endpoints.card, data: data);
+
+    return res.error;
+  }
+
 }

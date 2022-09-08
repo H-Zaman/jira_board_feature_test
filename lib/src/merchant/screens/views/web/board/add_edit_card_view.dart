@@ -5,9 +5,8 @@ import 'package:ordermanagement/src/merchant/model/card_model.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
 
 class AddEditCardView extends StatelessWidget {
-  final int? columnId;
   final CardModel? item;
-  const AddEditCardView({Key? key, this.columnId, this.item}) : super(key: key);
+  const AddEditCardView({Key? key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class AddEditCardView extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CTextField(
+            if(!isUpdate)CTextField(
               controller: _cardController,
               hint: 'Enter card id',
               title: 'Card Id',
@@ -78,14 +77,14 @@ class AddEditCardView extends StatelessWidget {
 
                     if(isUpdate){
 
-                      // await _controller.updateCard(
-                      //   cardId: _cardController.text,
-                      //   flag: flag,
-                      //   comment: _commentController.text,
-                      // );
+                      _controller.editCard(
+                        cardId: _cardController.text,
+                        flag: flag,
+                        comment: _commentController.text,
+                      );
 
                     }else{
-                      await _controller.addCard(
+                      _controller.addCard(
                         cardId: _cardController.text,
                         flag: flag,
                         comment: _commentController.text
