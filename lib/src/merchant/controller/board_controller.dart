@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/model/card_model.dart';
 import 'package:ordermanagement/src/merchant/model/column_model.dart';
 import 'package:ordermanagement/src/merchant/repository/board_repository.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
 import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_column_view.dart';
 
 class BoardController extends GetxController{
@@ -55,6 +54,20 @@ class BoardController extends GetxController{
     _loading(false);
   }
 
+  RxBool flagSort = RxBool(false);
+  void sortByFlagged() {
+    flagSort.value = !flagSort.value;
+    if(flagSort.value){
+      cards.sort((a,b){
+        if(b.flag){
+          return 1;
+        }
+        return -1;
+      });
+    }else{
+      cards.sort((a,b) => a.updatedAt.compareTo(b.updatedAt));
+    }
+  }
 
 
 
@@ -90,6 +103,4 @@ class BoardController extends GetxController{
     //     item: item
     // ));
   }
-
-  void allCards() => _repo.getAllCards();
 }

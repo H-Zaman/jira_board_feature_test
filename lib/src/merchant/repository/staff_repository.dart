@@ -3,7 +3,7 @@ import 'package:ordermanagement/src/utilities/api/_api.dart';
 
 class StaffRepo{
   Future<List<User>> allStaff() async{
-    final res = await Api.get(Endpoints.staffList);
+    final res = await Api.get(Endpoints.users);
     if(res.error) return [];
 
     return List<User>.from(res.data.map((staff) => User.fromJson(staff)));
@@ -26,22 +26,6 @@ class StaffRepo{
       "username": username
     };
 
-    return await Api.post(Endpoints.staffList, data: data);
-  }
-
-  Future<AResponse> updateStaff({
-    String? name,
-    String? email,
-    String? phone,
-    required String uid
-  }) async{
-    final data = {
-      if(name != null) 'name' : name,
-      if(email != null) 'email' : email,
-      if(phone != null) 'phone-number' : phone,
-      if(phone != null) 'user-id' : uid,
-    };
-
-    return await Api.patch(Endpoints.staffList, data: data);
+    return await Api.post(Endpoints.users, data: data);
   }
 }

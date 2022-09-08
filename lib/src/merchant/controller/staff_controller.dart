@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/model/user.dart';
 import 'package:ordermanagement/src/merchant/repository/staff_repository.dart';
+import 'package:ordermanagement/src/merchant/repository/user.dart';
 import 'package:ordermanagement/src/utilities/api/_api.dart';
 
 class StaffController extends GetxController{
   static StaffController get = Get.isRegistered<StaffController>() ? Get.find<StaffController>() : Get.put(StaffController());
 
   final _repo = StaffRepo();
+  final _userRepo = UserRepo();
 
   RxBool _loading = RxBool(false);
   bool get loading => _loading.value;
@@ -49,7 +51,7 @@ class StaffController extends GetxController{
   }) async{
 
     _addEditLoading(true);
-    final res = await _repo.updateStaff(
+    final res = await _userRepo.updateUser(
       name: name,
       email: email,
       phone: phone,

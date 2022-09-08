@@ -42,7 +42,7 @@ class BoardRepo{
     final data = {
       "comment": comment ?? '',
       "current-state": column,
-      "flag": flag ?? true,
+      "flag": flag ?? false,
       "queue-id": cardId
     };
 

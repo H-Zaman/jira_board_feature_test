@@ -7,7 +7,6 @@ import 'package:ordermanagement/src/merchant/model/column_model.dart';
 import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
 import 'package:ordermanagement/src/utilities/date_time_extension.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class BoardView extends StatefulWidget {
@@ -109,44 +108,38 @@ class _ColumnHeader extends StatelessWidget {
                       Icons.notification_add_outlined
                     ),
                   ),
-                  Card(
+                  Obx(()=>Card(
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(111)
+                        borderRadius: BorderRadius.circular(111)
+                    ),
+                    color: _controller.flagSort.value ? Colors.green : Colors.white,
+                    child: IconButton(
+                      constraints: BoxConstraints(),
+                      icon: Icon(
+                        Icons.warning_amber_rounded,
+                        color: _controller.flagSort.value ? Colors.white : Colors.red,
+                      ),
+                      onPressed: () async{
+                        _controller.sortByFlagged();
+                      },
+                    ),
+                  )),
+                  if(column.isFirstColumn) Card(
+                    margin: EdgeInsets.only(left: 12),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(111)
                     ),
                     child: IconButton(
                       constraints: BoxConstraints(),
-                      icon: Icon(Icons.more_horiz),
+                      icon: Icon(Icons.add,),
                       onPressed: () async{
-                        _controller.addEditColumn(column);
+                        await Get.dialog(AddEditCardView());
                       },
                     ),
-                  ),
+                  )
                 ],
               )
-            ),
-
-            if(column.isFirstColumn) Container(
-              margin: EdgeInsets.symmetric(vertical: deviceType == DeviceType.MOBILE ? 8 : 14),
-              height: deviceType == DeviceType.MOBILE ? 42 : 48,
-              child: CButton(
-                onPressed: () async{
-                  await Get.dialog(AddEditCardView());
-                },
-                label: 'add new',
-                fontSize: deviceType == DeviceType.MOBILE ? 14 : 16,
-                icon: Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.yellow.withOpacity(.4)
-                  ),
-                  child: Icon(
-                    Icons.add,
-                    size: 14,
-                  ),
-                )
-              ),
             ),
 
             Divider(
@@ -288,8 +281,17 @@ class _ColumnCard extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 14),
-              Text(
-                item.comment
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    item.comment
+                  ),
+                  if(item.flag) Icon(
+                    Icons.warning_amber_rounded,
+                    color: Colors.red,
+                  )
+                ],
               ),
             ],
           ),

@@ -10,4 +10,20 @@ class UserRepo{
     if(res.error) return null;
     return User.fromJson(res.data);
   }
+
+  Future<AResponse> updateUser({
+    String? name,
+    String? email,
+    String? phone,
+    required String uid
+  }) async{
+    final data = {
+      if(name != null) 'name' : name,
+      if(email != null) 'email' : email,
+      if(phone != null) 'phone-number' : phone,
+      if(phone != null) 'user-id' : uid,
+    };
+
+    return await Api.patch(Endpoints.users, data: data);
+  }
 }

@@ -81,8 +81,7 @@ class Api{
           errorMsg = error.response!.data['response_data']['message'];
         }else if(error.type == DioErrorType.connectTimeout){
           errorMsg += 'Request timed out';
-        }else if(error.response!.statusCode == 10000){
-          //TODO auth error
+        }else if(error.response!.statusCode == 403 || error.response!.statusCode == 401){
           Get.Get.offAllNamed(SplashScreen.route);
         }
       }else{
