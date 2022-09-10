@@ -17,4 +17,6 @@ class Endpoints{
   static const String updateCardStatus = '/merchant/queue/status';
 
   static const String adminMerchants = '/admin/merchants';
+
+  static String order(String merchantId, String orderId) => '/public/status/$merchantId/$orderId';
 }

@@ -21,7 +21,7 @@ class Business{
 
   factory Business.fromJson(Map<String, dynamic> json) => Business(
     name: json['business-name'],
-    qr: json['merchant-qr-link'],
+    qr: json['merchant-qr-link'] ?? '',
     address: json['merchant-address'],
     email: json['merchant-email'],
     phone: json['merchant-contact'],

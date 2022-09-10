@@ -7,7 +7,15 @@ import 'package:ordermanagement/src/widgets/_widgets.dart';
 
 class HomeScreenCustomer extends StatefulWidget {
   static const String route = '/HomeScreenCustomer';
-  const HomeScreenCustomer({Key? key}) : super(key: key);
+
+  final String merchantId;
+  final String? orderId;
+
+  const HomeScreenCustomer({
+    Key? key,
+    required this.merchantId,
+    this.orderId
+  }) : super(key: key);
 
   @override
   State<HomeScreenCustomer> createState() => _HomeScreenState();
@@ -18,24 +26,37 @@ class _HomeScreenState extends State<HomeScreenCustomer> {
   HomeController _controller = Get.put(HomeController());
 
   @override
+  void initState() {
+    _controller.merchantId(widget.merchantId);
+    super.initState();
+    if(widget.orderId != null){
+      _controller.getOrder(widget.orderId!);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage(Images.homeBG),
-        //     fit: BoxFit.cover
-        //   )
-        // ),
-        padding: EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 14
-        ),
-        child: SafeArea(
-          child: Obx(()=>_controller.enterNumberView.value ? _EnterNumberView() : _OrderStatusView()),
+    return Obx(()=>OverlayLoader(
+      loading: _controller.loading,
+      text: 'Fetching Order info...',
+      child: Scaffold(
+        body: Container(
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage(Images.homeBG),
+          //     fit: BoxFit.cover
+          //   )
+          // ),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 14
+          ),
+          child: SafeArea(
+            child: _controller.enterNumberView.value ? _EnterNumberView() : _OrderStatusView()
+          ),
         ),
       ),
-    );
+    ));
   }
 }
 
@@ -87,6 +108,8 @@ class _EnterNumberView extends StatelessWidget {
           children: [
             Flexible(
               child: TextField(
+                controller: controller.orderIdController,
+                onChanged: controller.orderId,
                 decoration: InputDecoration(
                   hintText: Translate.enter_obj.trParams({
                     'obj' : Translate.order_number.tr
@@ -110,9 +133,7 @@ class _EnterNumberView extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(horizontal: 32),
               child: IconButton(
-                onPressed: (){
-                  controller.enterNumberView(false);
-                },
+                onPressed: () => controller.getOrder(controller.orderIdController.text),
                 icon: Icon(
                   Icons.chevron_right,
                   color: Colors.white,
@@ -130,8 +151,8 @@ class _EnterNumberView extends StatelessWidget {
           child: Text(
             Translate.terms_conditions.tr,
             style: TextStyle(
-                fontSize: 12,
-                color: Colors.black
+              fontSize: 12,
+              color: Colors.black
             ),
           )
         )
@@ -153,7 +174,7 @@ class _OrderStatusView extends StatelessWidget {
       children: [
 
         Text(
-          'You order',
+          'You order\n${controller.order.order.id}',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold
@@ -190,7 +211,10 @@ class _OrderStatusView extends StatelessWidget {
         LoadingBars(),
         SizedBox(height: 20),
         Text(
-          'some subtitle text about the order status'
+          controller.order.order.comment
+        ),
+        Text(
+          controller.order.order.column
         ),
         SizedBox(height: 10),
         SwitchListTile(
