@@ -9,6 +9,7 @@ import 'package:ordermanagement/src/utilities/date_time_extension.dart';
 import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class BoardView extends StatefulWidget {
   final ScrollController? scrollController;
@@ -199,8 +200,10 @@ class _ColumnCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final _controller = BoardController.get;
 
+    final link = Uri.base.origin+'/HomeScreenCustomer'+'?mId=123&oId=456';
+
     final qrView = QrImage(
-      data: "1234567890",
+      data: link,
       version: QrVersions.auto,
       padding: EdgeInsets.zero,
       size: 200,
@@ -242,8 +245,8 @@ class _ColumnCard extends StatelessWidget {
                       child: Text(
                         item.id,
                         style: TextStyle(
-                            fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
-                            fontWeight: FontWeight.w700
+                          fontSize: deviceType == DeviceType.MOBILE ? 16 : 18,
+                          fontWeight: FontWeight.w700
                         ),
                       ),
                     ),
@@ -268,35 +271,39 @@ class _ColumnCard extends StatelessWidget {
                             ],
                           ),
                           content: Container(
-                              height: Get.height * .2,
-                              width: deviceType == DeviceType.MOBILE ? Get.width * .7 : Get.width * .1,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: qrView,
+                            height: Get.height * .2,
+                            width: deviceType == DeviceType.MOBILE ? Get.width * .7 : Get.width * .1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: qrView,
+                                ),
+                                SizedBox(height: 14),
+                                TextButton(
+                                  onPressed: (){
+                                    launchUrlString(link);
+                                  },
+                                  child: Text(
+                                    link,
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline
+                                    ),
                                   ),
-                                  SizedBox(height: 14),
-                                  Row(
-                                    children: [
-                                      Text(
-                                          'some links'
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              )
+                                )
+                              ],
+                            )
                           ),
                         ));
                       },
                       child: Container(
-                          margin: EdgeInsets.only(right: 24, left: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          height: 32,
-                          width: 32,
-                          child: qrView
+                        margin: EdgeInsets.only(right: 24, left: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        height: 32,
+                        width: 32,
+                        child: qrView
                       ),
                     )
                   ],
@@ -305,8 +312,8 @@ class _ColumnCard extends StatelessWidget {
                 Text(
                   '${item.user}, ${item.updatedAt.fr}',
                   style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey
+                    fontSize: 12,
+                    color: Colors.grey
                   ),
                 ),
                 SizedBox(height: 14),
@@ -314,7 +321,7 @@ class _ColumnCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        item.comment
+                      item.comment
                     ),
                     if(item.flag) Icon(
                       Icons.warning_amber_rounded,

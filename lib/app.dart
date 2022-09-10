@@ -9,8 +9,8 @@ import 'package:ordermanagement/src/sys_admin/screens/home_screen.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/locale_config.dart';
 import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyAppMain extends StatelessWidget {
+  const MyAppMain({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -24,13 +24,36 @@ class MyApp extends StatelessWidget {
       translations: AllTranslations(),
       routes: {
         SplashScreen.route : (context) => SplashScreen(),
-        HomeScreenCustomer.route : (context) => HomeScreenCustomer(),
         HomeBoardScreen.route : (context) => HomeBoardScreen(),
         HomeScreenSysAdmin.route : (context) => HomeScreenSysAdmin(),
         MerchantStaffManagementScreen.route : (context) => MerchantStaffManagementScreen(),
       },
-      // initialRoute: Uri.base.path,
       initialRoute: SplashScreen.route,
+    );
+  }
+}
+
+class MyAppCustomer extends StatelessWidget {
+  const MyAppCustomer({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final params = Uri.base.queryParameters;
+    return GetMaterialApp(
+      title: 'Customer Section',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.dmSansTextTheme(),
+        scaffoldBackgroundColor: Colors.white
+      ),
+      locale: Translate.localeEn,
+      translations: AllTranslations(),
+      routes: {
+        '/' : (context) => HomeScreenCustomer(
+          merchantId: params['mId']!,
+          orderId: params['oId'],
+        ),
+      },
+      initialRoute: '/',
     );
   }
 }
