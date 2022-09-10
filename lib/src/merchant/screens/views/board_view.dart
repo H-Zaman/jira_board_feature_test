@@ -201,7 +201,7 @@ class _ColumnCard extends StatelessWidget {
     final _controller = BoardController.get;
 
     final qrData = item.qr.split('/');
-    final link = Uri.base.origin+'/HomeScreenCustomer'+'?mId=${qrData[qrData.length-2]}&oId=${qrData.last}';
+    final link = Uri.base.origin+'?HomeScreenCustomer=true'+'&mId=${qrData[qrData.length-2]}&oId=${qrData.last}';
 
     final qrView = QrImage(
       data: link,

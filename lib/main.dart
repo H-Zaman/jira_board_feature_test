@@ -16,7 +16,7 @@ Future<void> main() async{
 
   await LocalStorage.init();
 
-  if(Uri.base.path.split('?').first == HomeScreenCustomer.route){
+  if(Uri.base.queryParameters.containsKey(HomeScreenCustomer.route.replaceAll('/', ''))){
     runApp(const MyAppCustomer());
   }else{
     runApp(const MyAppMain());
