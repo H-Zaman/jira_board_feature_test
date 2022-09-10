@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/model/user.dart';
 import 'package:ordermanagement/src/merchant/repository/user_repository.dart';
@@ -74,5 +76,11 @@ class UserController extends GetxController{
     _updateLoading(false);
     return res;
   }
+
+  Future<void> uploadImage(Uint8List imageData, String id, UserType type) async => await _repo.uploadImage(
+    imageData,
+    id,
+    type.name
+  );
 
 }

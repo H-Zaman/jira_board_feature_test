@@ -1,7 +1,9 @@
+import 'dart:typed_data';
 import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
 import 'package:ordermanagement/src/merchant/model/user.dart';
 import 'package:ordermanagement/src/utilities/api/_api.dart';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 
 class UserRepo{
   Future<User?> getUser() async{
@@ -45,5 +47,15 @@ class UserRepo{
     };
 
     return await Api.post(Endpoints.users, data: data);
+  }
+
+  Future<void> uploadImage(Uint8List imageData, String id, String type) async{
+    final data = FormData.fromMap({
+      'files' : [MultipartFile.fromBytes(imageData)],
+      'id' : id,
+      'type' : type,
+    });
+    
+    await Api.post(Endpoints.images, data: data);
   }
 }

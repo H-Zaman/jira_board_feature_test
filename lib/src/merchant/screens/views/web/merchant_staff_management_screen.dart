@@ -20,7 +20,7 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
   final _userController = UserController.get;
   final _staffController = StaffController.get;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'MerchantStaffManagementScreenWeb');
+  final scaffoldKey = GlobalObjectKey<ScaffoldState>('MerchantStaffManagementScreenWeb');
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,11 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
                           _staffController.selectedStaff = staff;
                           scaffoldKey.currentState!.openEndDrawer();
                         },
-                        leading: Icon(
+                        leading: UserImage(
+                          name: staff.name,
+                          image: staff.imageId,
+                        ),
+                        trailing: Icon(
                           Icons.edit
                         ),
                         title: Row(

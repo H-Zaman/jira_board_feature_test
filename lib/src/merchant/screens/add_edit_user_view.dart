@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
@@ -32,6 +33,7 @@ class AddEditUserView extends StatelessWidget {
     final passwordController = TextEditingController();
     Rxn<String> errorMsg = Rxn();
     final bool isUpdate = user != null;
+    Uint8List? imageData;
 
     if(isUpdate && !_userController.updateLoading){
       nameController.text = user!.name;
@@ -70,6 +72,27 @@ class AddEditUserView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 24),
+
+              if(isUpdate) StatefulBuilder(
+                builder: (BuildContext context, void Function(void Function()) setState) => Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 14),
+                    child: UserImage(
+                      image: user!.imageId,
+                      newImageData: imageData,
+                      onPickNewImage: (Uint8List? newImage){
+                        if(newImage == null) return ;
+                        setState((){
+                          imageData = newImage;
+                        });
+                      },
+                      name: user!.name,
+                      radius: 52,
+                      isUpdate: isUpdate,
+                    ),
+                  ),
+                )
+              ),
 
               CTextField(
                 controller: nameController,
@@ -160,6 +183,15 @@ class AddEditUserView extends StatelessWidget {
                         if(!formKey.currentState!.validate()) return ;
                         errorMsg.value = null;
                         if(isUpdate){
+
+                          if(imageData != null){
+                            _userController.uploadImage(
+                              imageData!,
+                              user!.userId,
+                              user!.userType
+                            );
+                          }
+
                           final res = await _userController.updateUser(
                             name: nameController.text,
                             email: emailController.text,
