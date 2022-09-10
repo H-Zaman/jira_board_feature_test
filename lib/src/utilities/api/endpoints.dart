@@ -19,4 +19,5 @@ class Endpoints{
   static const String adminMerchants = '/admin/merchants';
 
   static String order(String merchantId, String orderId) => '/public/status/$merchantId/$orderId';
+  static String cardFcm(String merchantId, String orderId) => '/public/token/$merchantId/$orderId';
 }

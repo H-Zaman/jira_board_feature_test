@@ -9,4 +9,14 @@ class OrderRepo{
 
     return Order.fromJson(res.data);
   }
+
+  Future<void> addFcmToken(String merchantId, String orderId, String fcmToken) async{
+    final data = {
+      "merchant-id": merchantId,
+      "queue-id": orderId,
+      "token": fcmToken
+    };
+
+    await Api.put(Endpoints.cardFcm(merchantId,orderId), data: data);
+  }
 }

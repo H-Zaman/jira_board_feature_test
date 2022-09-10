@@ -23,6 +23,12 @@ class HomeController extends GetxController{
 
   void onChangeNotificationPermission(bool value) {
     allowNotification(value);
+    //TODO order id is not available intially
+    _repo.addFcmToken(
+      merchantId.value,
+      orderId.value,
+      'fcmToken'
+    );
   }
 
   Future<void> getOrder(String orderId) async{
