@@ -210,6 +210,12 @@ class _WebDrawer extends StatelessWidget {
                     label: 'Staff',
                     selected: _homeController.homePageIndex.value == 1,
                     onPressed: () => _homeController.homePageIndex(1),
+                  ),
+                  if(_userController.isMerchant) DrawerListTile(
+                    icon: CupertinoIcons.settings_solid,
+                    label: 'Configuration',
+                    selected: _homeController.homePageIndex.value == 2,
+                    onPressed: () => _homeController.homePageIndex(2),
                   )
                 ],
               ),

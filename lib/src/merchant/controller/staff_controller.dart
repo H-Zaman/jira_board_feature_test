@@ -31,6 +31,7 @@ class StaffController extends GetxController{
   Future<List<User>> getStaffList() async{
     _loading(true);
     staffList(await _repo.allStaff());
+    staffList.removeWhere((user) => user.userType == UserType.MERCHANT);
     _loading(false);
 
     return staffList;

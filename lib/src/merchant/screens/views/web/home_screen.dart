@@ -4,6 +4,7 @@ import 'package:ordermanagement/src/merchant/controller/home_controller.dart';
 import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
 import 'package:ordermanagement/src/merchant/screens/add_edit_user_view.dart';
 import 'package:ordermanagement/src/merchant/screens/merchant_staff_management_screen.dart';
+import 'package:ordermanagement/src/merchant/screens/views/web/board/board_configuration_view.dart';
 import 'package:ordermanagement/src/widgets/_widgets.dart';
 import 'board/board_screen.dart';
 
@@ -38,7 +39,8 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
               index: _homeController.homePageIndex.value,
               children: [
                 BoardScreenWeb(),
-                MerchantStaffManagementScreen()
+                MerchantStaffManagementScreen(),
+                BoardConfigurationWeb()
               ],
             ))
           )

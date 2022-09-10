@@ -18,7 +18,7 @@ class User {
   UserType userType;
   String email;
   String phoneNumber;
-  String? imageId;
+  int? imageId;
   Business? business;
 
   factory User.fromJson(Map<String, dynamic> json) {

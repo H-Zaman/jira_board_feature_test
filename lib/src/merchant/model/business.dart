@@ -2,7 +2,7 @@ class Business{
   String name;
   String ownerName;
   String ownerId;
-  String? image;
+  int? image;
   String address;
   String email;
   String phone;

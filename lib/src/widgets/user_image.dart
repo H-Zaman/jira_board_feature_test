@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ordermanagement/src/utilities/resources/_resources.dart';
 
 class UserImage extends StatelessWidget {
-  final String? image;
+  final int? image;
   final String name;
   final Uint8List? newImageData;
   final double? radius;
@@ -24,7 +25,7 @@ class UserImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String? imageLink = image != null && image != '' ? image : null;
+    int? imageLink = image != null ? image : null;
     List<String> nameParts = name.split(' ');
     String nameLetters = '';
     nameParts.forEach((part) {
@@ -55,6 +56,7 @@ class UserImage extends StatelessWidget {
               );
 
               if (result != null) {
+                print(base64Encode(result.files.single.bytes!));
                 onPickNewImage!.call(result.files.single.bytes!);
               }else{
                 onPickNewImage!.call(null);
