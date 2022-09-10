@@ -19,7 +19,6 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,14 +32,8 @@
   <title>ordermanagement</title>
   <link rel="manifest" href="manifest.json">
 
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
 
-<!--  LOADER  -->
+  <!--  LOADER  -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     .loading {
@@ -86,13 +79,17 @@
       }
     }
   </style>
-<!--  LOADER  -->
+  <!--  LOADER  -->
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = null;
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
 
 </head>
 <body>
-  <div class="loading">
-    <div class="loader"></div>
-  </div>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
@@ -107,5 +104,8 @@
       });
     });
   </script>
+  <div class="loading">
+    <div class="loader"></div>
+  </div>
 </body>
 </html>
