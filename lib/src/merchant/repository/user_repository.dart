@@ -55,6 +55,12 @@ class UserRepo{
       'id' : id,
       'type' : type,
     };
+    // final data = {
+    //   'files' : [MultipartFile.fromString(base64.encode(imageData))],
+    //   'id' : id,
+    //   'type' : type,
+    // };
+    //
     print(data);
     final formData = FormData.fromMap(data);
     
