@@ -9,6 +9,7 @@ firebase.initializeApp({
   storageBucket: "vnotifyu-afd78.appspot.com",
   messagingSenderId: "873148419067",
   appId: "1:873148419067:web:b1e9a895019d2b2197d95e",
+  measurementId: "G-L0FLJZV2LW"
 });
 // Necessary to receive background messages:
 const messaging = firebase.messaging();
@@ -16,4 +17,8 @@ const messaging = firebase.messaging();
 // Optional:
 messaging.onBackgroundMessage((m) => {
   console.log("onBackgroundMessage", m);
+});
+
+self.addEventListener('notificationclick', function (event) {
+    console.log('notification received: ', event)
 });

@@ -1,6 +1,6 @@
 {
-    "name": "ordermanagement",
-    "short_name": "ordermanagement",
+    "name": "vnotifyu",
+    "short_name": "vnotifyu",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

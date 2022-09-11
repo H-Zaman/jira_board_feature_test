@@ -16,6 +16,8 @@ class HomeController extends GetxController{
 
   RxString merchantId = RxString('');
 
+  RxString errorMsg = RxString('');
+
   TextEditingController orderIdController = TextEditingController();
   RxString orderId = RxString('');
 
@@ -30,7 +32,7 @@ class HomeController extends GetxController{
       _repo.addFcmToken(
         merchantId.value,
         orderId.value,
-        FcmNotifications.fcmToken!
+        FcmNotifications.fcmToken.value!
       );
     }
   }
@@ -38,15 +40,18 @@ class HomeController extends GetxController{
   Future<void> getOrder(String orderId) async{
     orderIdController.text = orderId;
     this.orderId(orderId);
+    errorMsg.value = '';
     _loading(true);
     final order = await _repo.getOrderInfo(merchantId.value, orderId);
     if(order != null){
       _orderData(order);
       enterNumberView(false);
+      if(allowNotification.value){
+        onChangeNotificationPermission(true);
+      }
+    }else{
+      errorMsg.value = 'Not found';
     }
     _loading(false);
-    if(allowNotification.value){
-      onChangeNotificationPermission(true);
-    }
   }
 }

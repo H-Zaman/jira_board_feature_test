@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vnotifyu/src/customer/controllers/home_controller.dart';
+import 'package:vnotifyu/src/utilities/fcm_notifications.dart';
 import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
 import 'package:vnotifyu/src/utilities/helper/text_validators.dart';
 import 'package:vnotifyu/src/widgets/_widgets.dart';
@@ -149,6 +150,14 @@ class _EnterNumberView extends StatelessWidget {
 
             ],
           ),
+          SizedBox(height: 22),
+          if(controller.errorMsg.value != '') Text(
+            controller.errorMsg.value,
+            style: TextStyle(
+              color: Colors.red
+            ),
+          ),
+          SizedBox(height: 22),
 
 
           Spacer(),
@@ -189,6 +198,13 @@ class _OrderStatusView extends StatelessWidget {
         ),
 
         SizedBox(height: 40),
+
+        SelectableText(
+          '${FcmNotifications.fcmToken.value ?? 'token'}',
+          style: TextStyle(
+              color: Colors.grey
+          ),
+        ),
 
         Text(
           'Estimated delivery time',
