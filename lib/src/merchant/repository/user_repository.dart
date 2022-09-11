@@ -51,7 +51,7 @@ class UserRepo{
 
   Future<void> uploadImage(Uint8List imageData, String id, String type) async{
     final data = {
-      'files' : [MultipartFile.fromBytes(imageData)],
+      'files' : MultipartFile.fromBytes(imageData),
       'id' : id,
       'type' : type,
     };
