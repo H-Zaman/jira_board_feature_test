@@ -18,7 +18,7 @@ class BoardScreenWeb extends StatefulWidget {
 class _BoardScreenWebState extends State<BoardScreenWeb> {
 
   final _controller = BoardController.get;
-  // final _scrollController = ScrollController();
+  final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,22 +71,17 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
         ),
 
         /// COLUMNS
-        // Expanded(
-        //   child: Scrollbar(
-        //     controller: _scrollController,
-        //     interactive: true,
-        //     thickness: 14,
-        //     thumbVisibility: true,
-        //     trackVisibility: true,
-        //     scrollbarOrientation: ScrollbarOrientation.bottom,
-        //     child: BoardView(
-        //       scrollController: _scrollController
-        //     ),
-        //   ),
-        // )
         Expanded(
-          child: BoardView(
-            // scrollController: _scrollController
+          child: Scrollbar(
+            controller: _scrollController,
+            interactive: true,
+            thickness: 14,
+            thumbVisibility: true,
+            trackVisibility: true,
+            scrollbarOrientation: ScrollbarOrientation.bottom,
+            child: BoardView(
+              scrollController: _scrollController
+            ),
           ),
         )
       ],

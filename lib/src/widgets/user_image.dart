@@ -9,7 +9,7 @@ class UserImage extends StatelessWidget {
   final int? image;
   final String name;
   final Uint8List? newImageData;
-  final double? radius;
+  final double radius;
   final bool isUpdate;
   final Function(Uint8List? newImage)? onPickNewImage;
   const UserImage({
@@ -17,7 +17,7 @@ class UserImage extends StatelessWidget {
     required this.image,
     this.newImageData,
     required this.name,
-    this.radius,
+    this.radius = 20,
     this.isUpdate = false,
     this.onPickNewImage
   }) : super(key: key);
@@ -39,10 +39,14 @@ class UserImage extends StatelessWidget {
     return Stack(
       children: [
         CircleAvatar(
-          radius: radius ?? 20,
+          radius: radius,
           backgroundImage: imageWidget,
           child: imageLink == null ? Text(
-            nameLetters
+            nameLetters,
+            style: TextStyle(
+              fontSize: radius * .8,
+              fontWeight: FontWeight.w500
+            ),
           ) : null,
         ),
         if(isUpdate) Positioned(
@@ -56,7 +60,6 @@ class UserImage extends StatelessWidget {
               );
 
               if (result != null) {
-                print(base64Encode(result.files.single.bytes!));
                 onPickNewImage!.call(result.files.single.bytes!);
               }else{
                 onPickNewImage!.call(null);

@@ -232,7 +232,7 @@ class _WebDrawer extends StatelessWidget {
                 children: [
                   DrawerListTile(
                     onPressed: (){
-                      if(!_userController.loading) _homeController.scaffoldKey.currentState!.openEndDrawer();
+                      if(!_userController.loading && _homeController.scaffoldKey.currentState != null) _homeController.scaffoldKey.currentState!.openEndDrawer();
                     },
                     icon: Icons.person,
                     label: 'Profile',

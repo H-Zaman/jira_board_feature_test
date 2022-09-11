@@ -123,7 +123,7 @@ class _HomeView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
+              AutoSizeText(
                 Translate.splash_header.tr,
                 style: TextStyle(
                   letterSpacing: 4,
@@ -136,7 +136,7 @@ class _HomeView extends StatelessWidget {
               Row(
                 children: [
                   Expanded(child: SizedBox()),
-                  Expanded(child: Text(
+                  Expanded(child: AutoSizeText(
                     Translate.splash_subtitle.tr,
                     textAlign: TextAlign.justify,
                     style: TextStyle(

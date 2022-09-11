@@ -20,7 +20,7 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
   final _userController = UserController.get;
   final _staffController = StaffController.get;
 
-  final scaffoldKey = GlobalObjectKey<ScaffoldState>('MerchantStaffManagementScreenWeb');
+  final scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'MerchantStaffManagementScreenWeb');
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,9 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
               switch(val){
                 case 1:
                   _staffController.selectedStaff = null;
-                  scaffoldKey.currentState!.openEndDrawer();
+                  if(scaffoldKey.currentState != null){
+                    scaffoldKey.currentState!.openEndDrawer();
+                  }
                   break;
                 default:
                   break;
@@ -118,7 +120,7 @@ class _MerchantStaffManagementScreenWebState extends State<MerchantStaffManageme
       ),
       endDrawer: Obx(()=>AddEditUserView(
         onCancel: (){
-          scaffoldKey.currentState!.closeEndDrawer();
+          if(scaffoldKey.currentState != null) scaffoldKey.currentState!.closeEndDrawer();
         },
         user: _staffController.selectedStaff,
         onDone: _staffController.getData

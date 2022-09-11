@@ -37,6 +37,7 @@ class _BoardViewState extends State<BoardView> {
             listWidth: deviceType == DeviceType.MOBILE ? 270 : 300,
             itemDragOnLongPress: false,
             itemSizeAnimationDurationMilliseconds: 0,
+            listSizeAnimationDurationMilliseconds: 0,
             listDecoration: BoxDecoration(
               color: Color(0xffFFFAFA),
               borderRadius: BorderRadius.all(Radius.circular(7.0)),
@@ -47,7 +48,7 @@ class _BoardViewState extends State<BoardView> {
             itemDragHandle: DragHandle(
               verticalAlignment: DragHandleVerticalAlignment.top,
               child: Padding(
-                padding: EdgeInsets.only(right: 10, top: 20),
+                padding: EdgeInsets.only(right: 10, top: 10),
                 child: Icon(
                   Icons.menu,
                   color: Colors.black26,
@@ -77,7 +78,7 @@ class _BoardViewState extends State<BoardView> {
                 canDrag: false,
                 footer: column.isFirstColumn && _controller.addCardOngoing ? Loader(
                   color: Colors.black,
-                ) : null
+                ) : SizedBox()
               );
             }).toList(),
             onItemReorder: _controller.onItemReorder,

@@ -15,6 +15,7 @@ class Endpoints{
   static const String cards = '/merchant/queues';
   static const String card = '/merchant/queue';
   static const String updateCardStatus = '/merchant/queue/status';
+  static const String resetPassword = '/merchant/user/reset-password';
 
   static const String adminMerchants = '/admin/merchants';
 

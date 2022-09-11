@@ -50,12 +50,23 @@ class UserRepo{
   }
 
   Future<void> uploadImage(Uint8List imageData, String id, String type) async{
-    final data = FormData.fromMap({
+    final data = {
       'files' : [MultipartFile.fromBytes(imageData)],
       'id' : id,
       'type' : type,
-    });
+    };
+    print(data);
+    final formData = FormData.fromMap(data);
     
-    await Api.post(Endpoints.images, data: data);
+    await Api.post(Endpoints.images, data: formData);
+  }
+
+  Future<void> updatePassword(String password, String userId) async{
+    final data = {
+      'password' : password,
+      'user-id' : userId,
+    };
+    await Api.patch(Endpoints.resetPassword, data: data);
+
   }
 }

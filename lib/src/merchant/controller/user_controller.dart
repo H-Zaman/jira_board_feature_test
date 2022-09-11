@@ -77,10 +77,20 @@ class UserController extends GetxController{
     return res;
   }
 
-  Future<void> uploadImage(Uint8List imageData, String id, UserType type) async => await _repo.uploadImage(
-    imageData,
-    id,
-    type.name
-  );
+  Future<void> uploadImage(Uint8List imageData, String id, UserType type) async {
+    _updateLoading(true);
+    await _repo.uploadImage(
+        imageData,
+        id,
+        type.name
+    );
+    _updateLoading(false);
+  }
+
+  Future<void> updatePassword(String password, String userId) async {
+    _updateLoading(true);
+    await _repo.updatePassword(password, userId);
+    _updateLoading(false);
+  }
 
 }

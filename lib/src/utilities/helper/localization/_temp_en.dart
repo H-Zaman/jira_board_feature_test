@@ -8,6 +8,7 @@ Map<String, String> enLang = {
   'username' : 'Username',
   'enter_your_obj' : 'Enter your @obj',
   'password' : 'Password',
+  'newPassword' : 'New password',
   'created_on_date' : 'Created on @date',
   'menu' : 'Menu',
   'add_obj' : 'Add @obj',

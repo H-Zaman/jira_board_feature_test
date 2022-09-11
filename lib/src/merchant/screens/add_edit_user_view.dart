@@ -31,6 +31,7 @@ class AddEditUserView extends StatelessWidget {
     final phoneController = TextEditingController();
     final userNameController = TextEditingController();
     final passwordController = TextEditingController();
+    final newPasswordController = TextEditingController();
     Rxn<String> errorMsg = Rxn();
     final bool isUpdate = user != null;
     Uint8List? imageData;
@@ -147,12 +148,32 @@ class AddEditUserView extends StatelessWidget {
                     }),
                     title: Translate.password.tr,
                     fillColor: Colors.grey.shade300,
+                    password: true,
                     validator: TextValidators.password,
                   ),
                   SizedBox(height: 14),
                 ],
               ),
+
+              if(_userController.isMerchant && isUpdate) Column(
+                children: [
+                  CTextField(
+                    controller: newPasswordController,
+                    hint: Translate.enter_obj.trParams({
+                      'obj' : Translate.newPassword.tr
+                    }),
+                    title: Translate.newPassword.tr,
+                    fillColor: Colors.grey.shade300,
+                    password: true,
+                  ),
+                ],
+              ),
+
               SizedBox(height: 24),
+
+
+
+
               if(errorMsg.value != null) Center(
                 child: Text(
                   errorMsg.value!,
@@ -162,8 +183,6 @@ class AddEditUserView extends StatelessWidget {
                 ),
               ),
               Spacer(),
-
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -189,6 +208,13 @@ class AddEditUserView extends StatelessWidget {
                               imageData!,
                               user!.userId,
                               user!.userType
+                            );
+                          }
+
+                          if(newPasswordController.text.isNotEmpty){
+                            await _userController.updatePassword(
+                              newPasswordController.text,
+                              user!.userId
                             );
                           }
 

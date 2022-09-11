@@ -25,7 +25,11 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
     return Scaffold(
       key: _homeController.scaffoldKey,
       endDrawer: Obx(()=> AddEditUserView(
-        onCancel: _homeController.scaffoldKey.currentState!.closeEndDrawer,
+        onCancel: (){
+          if(_homeController.scaffoldKey.currentState != null){
+            _homeController.scaffoldKey.currentState!.closeEndDrawer();
+          }
+        },
         user: _userController.user,
         isProfile: true,
         onDone: () => _userController.getSetUser(false),

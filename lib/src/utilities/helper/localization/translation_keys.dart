@@ -11,6 +11,7 @@ class Translate{
   static const String username = 'username';
   static const String name = 'name';
   static const String password = 'password';
+  static const String newPassword = 'newPassword';
   static const String log_in = 'log_in';
   static const String login = 'login';
   static const String created_on_date = 'created_on_date';
