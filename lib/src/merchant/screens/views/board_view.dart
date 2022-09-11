@@ -272,17 +272,19 @@ class _ColumnCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          content: Container(
-                            height: Get.height * .2,
-                            width: deviceType == DeviceType.MOBILE ? Get.width * .7 : Get.width * .1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: qrView,
-                                ),
-                                SizedBox(height: 14),
-                                TextButton(
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 200,
+                                height: 200,
+                                child: qrView,
+                              ),
+                              SizedBox(height: 14),
+                              SizedBox(
+                                width: 200,
+                                child: TextButton(
                                   onPressed: (){
                                     launchUrlString(link);
                                   },
@@ -292,9 +294,9 @@ class _ColumnCard extends StatelessWidget {
                                       decoration: TextDecoration.underline
                                     ),
                                   ),
-                                )
-                              ],
-                            )
+                                ),
+                              )
+                            ],
                           ),
                         ));
                       },
