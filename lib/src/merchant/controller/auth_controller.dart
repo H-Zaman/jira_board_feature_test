@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/merchant/repository/auth_repository.dart';
-import 'package:ordermanagement/src/merchant/screens/splash_screen.dart';
-import 'package:ordermanagement/src/utilities/api/_api.dart';
-import 'package:ordermanagement/src/utilities/local_storage.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/merchant/repository/auth_repository.dart';
+import 'package:vnotifyu/src/merchant/screens/splash_screen.dart';
+import 'package:vnotifyu/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/utilities/local_storage.dart';
 import 'user_controller.dart';
 
 class AuthController extends GetxController{

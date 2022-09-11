@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
-import 'package:ordermanagement/src/merchant/model/card_model.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/merchant/controller/board_controller.dart';
+import 'package:vnotifyu/src/merchant/model/card_model.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class AddEditCardView extends StatelessWidget {
   final CardModel? card;

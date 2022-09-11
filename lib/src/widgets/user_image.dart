@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/utilities/resources/_resources.dart';
+import 'package:vnotifyu/src/utilities/resources/_resources.dart';
 
 class UserImage extends StatelessWidget {
   final int? image;

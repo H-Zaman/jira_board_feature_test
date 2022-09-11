@@ -1,5 +1,5 @@
-import 'package:ordermanagement/src/customer/models/order.dart';
-import 'package:ordermanagement/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/customer/models/order.dart';
+import 'package:vnotifyu/src/utilities/api/_api.dart';
 
 class OrderRepo{
   Future<Order?> getOrderInfo(String merchantId, String orderId) async{

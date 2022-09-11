@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
+import 'package:vnotifyu/src/utilities/helper/device_helper.dart';
 
 import 'views/mobile/home_screen.dart';
 import 'views/web/home_screen.dart';

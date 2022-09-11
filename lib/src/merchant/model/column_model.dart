@@ -1,4 +1,4 @@
-import 'package:ordermanagement/src/merchant/model/card_model.dart';
+import 'package:vnotifyu/src/merchant/model/card_model.dart';
 
 class ColumnModel{
   int index;

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
-import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
-import 'package:ordermanagement/src/merchant/screens/splash_screen.dart';
-import 'package:ordermanagement/src/utilities/logger.dart';
+import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
+import 'package:vnotifyu/src/merchant/screens/splash_screen.dart';
+import 'package:vnotifyu/src/utilities/logger.dart';
 
 import '_api.dart';
 

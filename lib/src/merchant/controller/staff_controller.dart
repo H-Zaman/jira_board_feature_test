@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/merchant/repository/staff_repository.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/merchant/repository/staff_repository.dart';
 
 class StaffController extends GetxController{
   static StaffController get = Get.isRegistered<StaffController>() ? Get.find<StaffController>() : Get.put(StaffController());

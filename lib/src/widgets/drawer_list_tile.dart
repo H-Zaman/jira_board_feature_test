@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
+import 'package:vnotifyu/src/utilities/helper/device_helper.dart';
 
 class DrawerListTile extends StatelessWidget {
   final IconData icon;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
-import 'package:ordermanagement/src/merchant/screens/views/board_view.dart';
-import 'package:ordermanagement/src/merchant/screens/views/card_search_delegate.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/top_app_bar_web.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/merchant/controller/board_controller.dart';
+import 'package:vnotifyu/src/merchant/screens/views/board_view.dart';
+import 'package:vnotifyu/src/merchant/screens/views/card_search_delegate.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/board/add_edit_card_view.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/top_app_bar_web.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class BoardScreenWeb extends StatefulWidget {
   const BoardScreenWeb({Key? key}) : super(key: key);

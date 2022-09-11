@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
+import 'package:vnotifyu/src/utilities/helper/device_helper.dart';
 
 class MenuButton extends StatelessWidget {
   final String menu;

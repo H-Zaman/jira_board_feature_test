@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
-import 'package:ordermanagement/src/merchant/model/card_model.dart';
-import 'package:ordermanagement/src/merchant/model/column_model.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
-import 'package:ordermanagement/src/utilities/date_time_extension.dart';
-import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
-import 'package:ordermanagement/src/widgets/drag_drop_list/drag_and_drop_lists.dart';
+import 'package:vnotifyu/src/merchant/controller/board_controller.dart';
+import 'package:vnotifyu/src/merchant/model/card_model.dart';
+import 'package:vnotifyu/src/merchant/model/column_model.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/board/add_edit_card_view.dart';
+import 'package:vnotifyu/src/utilities/date_time_extension.dart';
+import 'package:vnotifyu/src/utilities/helper/device_helper.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/widgets/drag_drop_list/drag_and_drop_lists.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 

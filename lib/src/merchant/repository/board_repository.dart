@@ -1,6 +1,6 @@
-import 'package:ordermanagement/src/merchant/model/card_model.dart';
-import 'package:ordermanagement/src/merchant/model/column_model.dart';
-import 'package:ordermanagement/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/merchant/model/card_model.dart';
+import 'package:vnotifyu/src/merchant/model/column_model.dart';
+import 'package:vnotifyu/src/utilities/api/_api.dart';
 
 class BoardRepo{
 

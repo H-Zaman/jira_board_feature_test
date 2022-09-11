@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/merchant/repository/user_repository.dart';
-import 'package:ordermanagement/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/merchant/repository/user_repository.dart';
+import 'package:vnotifyu/src/utilities/api/_api.dart';
 
 class UserController extends GetxController{
   static UserController get = Get.isRegistered<UserController>() ? Get.find<UserController>() : Get.put(UserController());

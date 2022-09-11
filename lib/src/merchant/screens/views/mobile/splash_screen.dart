@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
-import 'package:ordermanagement/src/utilities/resources/_resources.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/utilities/resources/_resources.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 import 'login_bottom_sheet.dart';
 
 class SplashScreenMobile extends StatefulWidget {

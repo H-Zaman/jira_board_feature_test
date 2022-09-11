@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 import '../board_view.dart';
 
 class HomeScreenMobile extends StatelessWidget {

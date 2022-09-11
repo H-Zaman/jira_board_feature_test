@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
-import 'package:ordermanagement/src/merchant/model/column_model.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_column_view.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/top_app_bar_web.dart';
-import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
-import 'package:ordermanagement/src/widgets/drag_drop_list/drag_and_drop_lists.dart';
+import 'package:vnotifyu/src/merchant/controller/board_controller.dart';
+import 'package:vnotifyu/src/merchant/model/column_model.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/board/add_edit_column_view.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/top_app_bar_web.dart';
+import 'package:vnotifyu/src/utilities/helper/device_helper.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/widgets/drag_drop_list/drag_and_drop_lists.dart';
 
 class BoardConfigurationWeb extends StatefulWidget {
   const BoardConfigurationWeb({Key? key}) : super(key: key);

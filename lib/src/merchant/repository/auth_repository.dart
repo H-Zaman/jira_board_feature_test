@@ -1,4 +1,4 @@
-import 'package:ordermanagement/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/utilities/api/_api.dart';
 
 class AuthRepo{
   Future<AResponse> logIn(String userName, String password) async {

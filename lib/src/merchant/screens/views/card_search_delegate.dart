@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
-import 'package:ordermanagement/src/merchant/model/card_model.dart';
+import 'package:vnotifyu/src/merchant/controller/board_controller.dart';
+import 'package:vnotifyu/src/merchant/model/card_model.dart';
 
 class CardSearch extends SearchDelegate<CardModel?>{
 

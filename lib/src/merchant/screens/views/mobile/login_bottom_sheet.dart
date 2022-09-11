@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/screens/home_screen.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/merchant/screens/home_screen.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class LoginBottomSheet extends StatelessWidget {
   const LoginBottomSheet({Key? key}) : super(key: key);

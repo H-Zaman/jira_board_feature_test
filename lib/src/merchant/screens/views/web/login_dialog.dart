@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
-import 'package:ordermanagement/src/merchant/screens/home_screen.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
-import 'package:ordermanagement/src/utilities/helper/text_validators.dart';
-import 'package:ordermanagement/src/utilities/resources/_resources.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
+import 'package:vnotifyu/src/merchant/screens/home_screen.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/utilities/helper/text_validators.dart';
+import 'package:vnotifyu/src/utilities/resources/_resources.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class LoginDialogWeb extends StatefulWidget {
   const LoginDialogWeb({Key? key}) : super(key: key);

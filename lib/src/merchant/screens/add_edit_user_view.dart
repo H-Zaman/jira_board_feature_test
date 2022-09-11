@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
-import 'package:ordermanagement/src/utilities/helper/text_validators.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/merchant/controller/user_controller.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/utilities/helper/text_validators.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class AddEditUserView extends StatelessWidget {
   final VoidCallback onCancel;

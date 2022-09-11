@@ -1,7 +1,7 @@
 import 'dart:typed_data';
-import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/utilities/api/_api.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 

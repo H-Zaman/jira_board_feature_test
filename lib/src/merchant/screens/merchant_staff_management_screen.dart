@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ordermanagement/src/merchant/screens/views/mobile/merchant_staff_management_screen.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/merchant_staff_management_screen.dart';
-import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
+import 'package:vnotifyu/src/merchant/screens/views/mobile/merchant_staff_management_screen.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/merchant_staff_management_screen.dart';
+import 'package:vnotifyu/src/utilities/helper/device_helper.dart';
 
 class MerchantStaffManagementScreen extends StatelessWidget {
   static const String route = 'MerchantStaffManagementScreen';

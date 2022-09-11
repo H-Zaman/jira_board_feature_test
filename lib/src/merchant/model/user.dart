@@ -1,4 +1,4 @@
-import 'package:ordermanagement/src/merchant/model/business.dart';
+import 'package:vnotifyu/src/merchant/model/business.dart';
 
 class User {
   User({

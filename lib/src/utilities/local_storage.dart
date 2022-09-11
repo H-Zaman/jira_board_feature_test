@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:get_storage/get_storage.dart';
-import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
 
 class LocalStorage{
 

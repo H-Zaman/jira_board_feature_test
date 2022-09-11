@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/customer/models/order.dart';
-import 'package:ordermanagement/src/customer/repositories/order_repository.dart';
+import 'package:vnotifyu/src/customer/models/order.dart';
+import 'package:vnotifyu/src/customer/repositories/order_repository.dart';
 
 class HomeController extends GetxController{
 

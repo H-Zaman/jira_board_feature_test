@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/board_controller.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/board/add_edit_card_view.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/merchant/controller/board_controller.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/board/add_edit_card_view.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
 
 class MobileAppbar extends StatelessWidget implements PreferredSizeWidget{
   const MobileAppbar({Key? key}) : super(key: key);

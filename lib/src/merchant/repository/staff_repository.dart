@@ -1,5 +1,5 @@
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/utilities/api/_api.dart';
 
 class StaffRepo{
   Future<List<User>> allStaff() async{

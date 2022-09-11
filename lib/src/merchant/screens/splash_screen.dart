@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/auth_controller.dart';
-import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/merchant/screens/home_screen.dart';
-import 'package:ordermanagement/src/sys_admin/screens/home_screen.dart';
-import 'package:ordermanagement/src/utilities/helper/device_helper.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
+import 'package:vnotifyu/src/merchant/controller/user_controller.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/merchant/screens/home_screen.dart';
+import 'package:vnotifyu/src/sys_admin/screens/home_screen.dart';
+import 'package:vnotifyu/src/utilities/helper/device_helper.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 import 'views/mobile/splash_screen.dart';
 import 'views/web/splash_screen.dart';

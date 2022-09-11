@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ordermanagement/src/merchant/controller/staff_controller.dart';
-import 'package:ordermanagement/src/merchant/controller/user_controller.dart';
-import 'package:ordermanagement/src/merchant/model/user.dart';
-import 'package:ordermanagement/src/merchant/screens/add_edit_user_view.dart';
-import 'package:ordermanagement/src/merchant/screens/views/web/top_app_bar_web.dart';
-import 'package:ordermanagement/src/utilities/helper/localization/translation_keys.dart';
-import 'package:ordermanagement/src/widgets/_widgets.dart';
+import 'package:vnotifyu/src/merchant/controller/staff_controller.dart';
+import 'package:vnotifyu/src/merchant/controller/user_controller.dart';
+import 'package:vnotifyu/src/merchant/model/user.dart';
+import 'package:vnotifyu/src/merchant/screens/add_edit_user_view.dart';
+import 'package:vnotifyu/src/merchant/screens/views/web/top_app_bar_web.dart';
+import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class MerchantStaffManagementScreenWeb extends StatefulWidget {
   const MerchantStaffManagementScreenWeb({Key? key}) : super(key: key);
