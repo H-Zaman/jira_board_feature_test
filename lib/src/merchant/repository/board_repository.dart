@@ -15,8 +15,13 @@ class BoardRepo{
 
   Future<bool> createUpdateColumns(List<ColumnModel> columns) async{
 
+    int colIndex = 0;
+
     final data = {
-      "state-list": List<dynamic>.from(columns.map((column) => column.toJson()))
+      "state-list": List<dynamic>.from(columns.map((column) {
+        colIndex++;
+        return column.toJson(colIndex);
+      }))
     };
 
     final res = await Api.put(Endpoints.columns, data: data);

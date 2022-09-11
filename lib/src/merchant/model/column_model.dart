@@ -35,8 +35,8 @@ class ColumnModel{
     notify: json['notify'],
   );
 
-  Map<String, dynamic> toJson() =>     {
-    "index": index,
+  Map<String, dynamic> toJson(int colIndex) =>     {
+    "index": colIndex,
     "message": message,
     "name": name,
     "notify": notify,

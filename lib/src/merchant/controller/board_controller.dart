@@ -78,6 +78,11 @@ class BoardController extends GetxController{
     updateCardId.value = null;
   }
 
+  Future<void> updateColumn () async {
+    await _repo.createUpdateColumns(columns);
+    await getAllColumns();
+  }
+
   void onItemReorder(oldItemIndex, oldListIndex, _, newListIndex) async{
     if(oldListIndex == newListIndex) return ;
     CardModel movedItem = columns[oldListIndex].cards.removeAt(oldItemIndex);
@@ -101,4 +106,5 @@ class BoardController extends GetxController{
   }
 
   Future<void> addEditColumn([ColumnModel? column]) async => await Get.dialog(AddEditColumnView(column: column));
+
 }
