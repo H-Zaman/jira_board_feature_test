@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vnotifyu/src/customer/controllers/home_controller.dart';
 import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
+import 'package:vnotifyu/src/utilities/helper/text_validators.dart';
 import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class HomeScreenCustomer extends StatefulWidget {
@@ -65,99 +66,105 @@ class _EnterNumberView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
     HomeController controller = Get.find();
 
-    return Obx(()=>Column(
-      children: [
+    return Obx(()=>Form(
+      key: formKey,
+      child: Column(
+        children: [
 
-        Text(
-          Translate.home_header.tr,
-          style: TextStyle(
-            fontSize: 32,
-            letterSpacing: 1.5
+          Text(
+            Translate.home_header.tr,
+            style: TextStyle(
+              fontSize: 32,
+              letterSpacing: 1.5
+            ),
           ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          Translate.home_subtitle.tr,
-          style: TextStyle(
-            fontSize: 16,
+          SizedBox(height: 8),
+          Text(
+            Translate.home_subtitle.tr,
+            style: TextStyle(
+              fontSize: 16,
+            ),
           ),
-        ),
-        SizedBox(height: 32),
+          SizedBox(height: 32),
 
-        SwitchListTile(
-          value: controller.allowNotification.value,
-          onChanged: controller.onChangeNotificationPermission,
-          activeColor: Colors.black,
-          title: Text(
-            Translate.allow_obj.trParams({
-              'obj' : Translate.notification.tr
-            })
+          SwitchListTile(
+            value: controller.allowNotification.value,
+            onChanged: controller.onChangeNotificationPermission,
+            activeColor: Colors.black,
+            title: Text(
+              Translate.allow_obj.trParams({
+                'obj' : Translate.notification.tr
+              })
+            ),
+            contentPadding: EdgeInsets.zero,
+            subtitle: Text(
+              Translate.allow_notification_subtitle.tr
+            ),
           ),
-          contentPadding: EdgeInsets.zero,
-          subtitle: Text(
-            Translate.allow_notification_subtitle.tr
-          ),
-        ),
 
-        SizedBox(height: 22),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: TextField(
-                controller: controller.orderIdController,
-                onChanged: controller.orderId,
-                decoration: InputDecoration(
-                  hintText: Translate.enter_obj.trParams({
-                    'obj' : Translate.order_number.tr
-                  }),
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: BorderSide(
-                      color: Colors.grey
+          SizedBox(height: 22),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Flexible(
+                child: TextFormField(
+                  controller: controller.orderIdController,
+                  onChanged: controller.orderId,
+                  validator: (string) => TextValidators.normal(string, 'Can not be empty'),
+                  decoration: InputDecoration(
+                    hintText: Translate.enter_obj.trParams({
+                      'obj' : Translate.order_number.tr
+                    }),
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(
+                        color: Colors.grey
+                      )
                     )
-                  )
+                  ),
                 ),
               ),
-            ),
 
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: IconButton(
-                onPressed: () => controller.getOrder(controller.orderIdController.text),
-                icon: Icon(
-                  Icons.chevron_right,
-                  color: Colors.white,
-                )
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: IconButton(
+                  onPressed: () {
+                    if(formKey.currentState!.validate()) controller.getOrder(controller.orderIdController.text);
+                  },
+                  icon: Icon(
+                    Icons.chevron_right,
+                    color: Colors.white,
+                  )
+                ),
+              )
+
+            ],
+          ),
+
+
+          Spacer(),
+          TextButton(
+            onPressed: (){},
+            child: Text(
+              Translate.terms_conditions.tr,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black
               ),
             )
-
-          ],
-        ),
-
-
-        Spacer(),
-        TextButton(
-          onPressed: (){},
-          child: Text(
-            Translate.terms_conditions.tr,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black
-            ),
           )
-        )
 
-      ],
+        ],
+      ),
     ));
   }
 }

@@ -48,6 +48,9 @@ class MyAppCustomer extends StatelessWidget {
       locale: Translate.localeEn,
       translations: AllTranslations(),
       routes: {
+        // '/' : (context) => HomeScreenCustomer(
+        //   merchantId: 'I22942145370',
+        // ),
         '/' : (context) => HomeScreenCustomer(
           merchantId: params['mId']!,
           orderId: params['oId'],

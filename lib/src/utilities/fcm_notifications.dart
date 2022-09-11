@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
 Future<void> _backgroundNotification(RemoteMessage message) async{
   print('notification');
@@ -47,11 +48,11 @@ class FcmNotifications{
   }
 
   static void _onMessage(RemoteMessage notification) {
-    print('notification');
+    Get.snackbar(notification.notification!.title ?? '', notification.notification!.body ?? '');
   }
 
   static void _onMessageOpenedApp(RemoteMessage notification) {
-    print('notification');
+    Get.snackbar(notification.notification!.title ?? '', notification.notification!.body ?? '');
   }
 
 }

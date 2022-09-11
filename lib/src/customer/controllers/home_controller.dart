@@ -25,7 +25,7 @@ class HomeController extends GetxController{
   void onChangeNotificationPermission(bool value) async{
     allowNotification(value);
 
-    if(value){
+    if(value && orderId.value != ''){
       await FcmNotifications.initialize();
       _repo.addFcmToken(
         merchantId.value,
@@ -45,5 +45,8 @@ class HomeController extends GetxController{
       enterNumberView(false);
     }
     _loading(false);
+    if(allowNotification.value){
+      onChangeNotificationPermission(true);
+    }
   }
 }
