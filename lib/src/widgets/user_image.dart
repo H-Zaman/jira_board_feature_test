@@ -1,9 +1,9 @@
-import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:vnotifyu/src/utilities/resources/_resources.dart';
+import 'package:vnotifyu/src/widgets/_widgets.dart';
 
 class UserImage extends StatelessWidget {
   final int? image;
@@ -32,22 +32,33 @@ class UserImage extends StatelessWidget {
       if(nameLetters.length < 2) nameLetters+=part[0].toUpperCase();
     });
 
-    dynamic imageWidget = newImageData == null ? imageLink == null ? null : CachedNetworkImageProvider(
-      Images.getImage(imageLink)
-    ) : MemoryImage(newImageData!);
+    final nameWidget = Text(
+      nameLetters,
+      style: TextStyle(
+        fontSize: radius * .8,
+        fontWeight: FontWeight.w500
+      ),
+    );
+
+    dynamic imageWidget = ClipRRect(
+      borderRadius: BorderRadius.circular(1000),
+      child: newImageData == null ? imageLink == null ? null : CachedNetworkImage(
+        imageUrl: Images.getImage(imageLink),
+        errorWidget: (_,__,___) => nameWidget,
+        progressIndicatorBuilder: (_,__,downloadProgress) => Loader(progress: downloadProgress.progress),
+        fit: BoxFit.cover,
+        useOldImageOnUrlChange: true,
+      ) : Image.memory(
+        newImageData!,
+        fit: BoxFit.cover,
+      ),
+    );
 
     return Stack(
       children: [
         CircleAvatar(
           radius: radius,
-          backgroundImage: imageWidget,
-          child: imageLink == null ? Text(
-            nameLetters,
-            style: TextStyle(
-              fontSize: radius * .8,
-              fontWeight: FontWeight.w500
-            ),
-          ) : null,
+          child: imageLink == null ? nameWidget : imageWidget,
         ),
         if(isUpdate) Positioned(
           bottom: 0,
