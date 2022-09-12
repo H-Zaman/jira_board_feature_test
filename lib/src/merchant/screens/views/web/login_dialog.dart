@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
+import 'package:vnotifyu/src/merchant/controller/home_controller.dart';
 import 'package:vnotifyu/src/merchant/screens/home_screen.dart';
 import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart';
 import 'package:vnotifyu/src/utilities/helper/text_validators.dart';
@@ -134,6 +135,7 @@ class _LoginDialogWebState extends State<LoginDialogWeb> {
                                 if(errorMsg != null){
                                   this.errorMsg = errorMsg;
                                 }else{
+                                  MainHomeController.get.onChange(0);
                                   Get.offAllNamed(HomeBoardScreen.route);
                                 }
 

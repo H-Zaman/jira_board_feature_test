@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
+import 'package:vnotifyu/src/merchant/controller/home_controller.dart';
 import 'package:vnotifyu/src/merchant/controller/user_controller.dart';
 import 'package:vnotifyu/src/merchant/model/user.dart';
 import 'package:vnotifyu/src/merchant/screens/home_screen.dart';
@@ -30,6 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
     if(AuthController.get.token != null){
       _userController.getSetUser().then((user){
         if(user != null){
+          if(user.userType == UserType.STAFF){
+            MainHomeController.get.onChange(0);
+          }
           if(user.userType == UserType.SYS_ADMIN){
             Future.delayed(Duration(milliseconds: 300),(){
               Get.offAllNamed(HomeScreenSysAdmin.route);
