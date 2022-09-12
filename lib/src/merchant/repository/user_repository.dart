@@ -64,7 +64,14 @@ class UserRepo{
       'password' : password,
       'user-id' : userId,
     };
-    await Api.patch(Endpoints.resetPassword, data: data);
+    await Api.patch(Endpoints.updatePassword, data: data);
+  }
 
+  Future<AResponse> changePassword(String password, String userId) async{
+    final data = {
+      'password' : password,
+      'user-id' : userId,
+    };
+    return await Api.post(Endpoints.resetPassword, data: data);
   }
 }

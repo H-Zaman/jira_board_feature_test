@@ -1,14 +1,17 @@
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
+import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
 import 'package:vnotifyu/src/merchant/model/user.dart';
 import 'package:vnotifyu/src/merchant/repository/user_repository.dart';
 import 'package:vnotifyu/src/utilities/api/_api.dart';
+import 'package:vnotifyu/src/utilities/local_storage.dart';
 
 class UserController extends GetxController{
   static UserController get = Get.isRegistered<UserController>() ? Get.find<UserController>() : Get.put(UserController());
 
   UserRepo _repo = UserRepo();
+  LocalStorage _localStorage = LocalStorage();
 
   RxBool _loading = RxBool(false);
   bool get loading => _loading.value;
@@ -89,7 +92,17 @@ class UserController extends GetxController{
 
   Future<void> updatePassword(String password, String userId) async {
     _updateLoading(true);
-    await _repo.updatePassword(password, userId);
+    if(userId == user.userId){
+      final res = await _repo.changePassword(password, userId);
+      if(!res.error) {
+        _localStorage.saveToken(res.token!);
+        AuthController.get.token = res.token!;
+        user = User.fromJson(res.data['profile']);
+      }
+
+    }else{
+      await _repo.updatePassword(password, userId);
+    }
     _updateLoading(false);
   }
 

@@ -9,13 +9,14 @@ class Endpoints{
   static const String login = '$account/login';
   static String user (String userid) => '$account/user/$userid';
   static const String images = '/account/images';
+  static const String resetPassword = '/account/changePassword';
 
   static const String users = '/merchant/user';
   static const String columns = '/merchant/state';
   static const String cards = '/merchant/queues';
   static const String card = '/merchant/queue';
   static const String updateCardStatus = '/merchant/queue/status';
-  static const String resetPassword = '/merchant/user/reset-password';
+  static const String updatePassword = '/merchant/user/reset-password';
 
   static const String adminMerchants = '/admin/merchants';
 
