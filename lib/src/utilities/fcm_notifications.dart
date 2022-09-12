@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 Future<void> _backgroundNotification(RemoteMessage message) async{
@@ -30,13 +29,7 @@ class FcmNotifications{
       sound: true
     );
 
-    bool isWeb = defaultTargetPlatform != TargetPlatform.android && defaultTargetPlatform != TargetPlatform.iOS;
-
-    fcmToken.value = await _fcm.getToken(
-      vapidKey: isWeb ? _vapidKey : null
-    );
-
-    print(fcmToken);
+    fcmToken.value = await _fcm.getToken(vapidKey: _vapidKey);
 
     _fcm.onTokenRefresh.listen((newFcmToken) => fcmToken.value = newFcmToken);
 
