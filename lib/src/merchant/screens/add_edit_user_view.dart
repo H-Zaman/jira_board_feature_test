@@ -7,7 +7,7 @@ import 'package:vnotifyu/src/utilities/helper/localization/translation_keys.dart
 import 'package:vnotifyu/src/utilities/helper/text_validators.dart';
 import 'package:vnotifyu/src/widgets/_widgets.dart';
 
-class AddEditUserView extends StatelessWidget {
+class AddEditUserView extends StatefulWidget {
   final VoidCallback onCancel;
   final User? user;
   final VoidCallback? onDone;
@@ -20,28 +20,42 @@ class AddEditUserView extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<AddEditUserView> createState() => _AddEditUserViewState();
+}
 
-    final _userController = UserController.get;
+class _AddEditUserViewState extends State<AddEditUserView> {
 
-    final GlobalKey<FormState> formKey = GlobalKey();
+  final _userController = UserController.get;
 
-    final nameController = TextEditingController();
-    final emailController = TextEditingController();
-    final phoneController = TextEditingController();
-    final userNameController = TextEditingController();
-    final passwordController = TextEditingController();
-    final newPasswordController = TextEditingController();
-    Rxn<String> errorMsg = Rxn();
-    final bool isUpdate = user != null;
-    Uint8List? imageData;
+  final GlobalKey<FormState> formKey = GlobalKey();
 
-    if(isUpdate && !_userController.updateLoading){
-      nameController.text = user!.name;
-      emailController.text = user!.email;
-      phoneController.text = user!.phoneNumber;
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+  Rxn<String> errorMsg = Rxn();
+  bool isUpdate = false;
+  Uint8List? imageData;
+
+  bool editMode = false;
+
+  @override
+  void initState() {
+    isUpdate = widget.user != null;
+    if(!isUpdate){
+      editMode = true;
     }
+    super.initState();
+    if(isUpdate && !_userController.updateLoading){
+      nameController.text = widget.user!.name;
+      emailController.text = widget.user!.email;
+      phoneController.text = widget.user!.phoneNumber;
+    }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Obx((){
       return Container(
         margin: EdgeInsets.only(top: Get.height * .15),
@@ -61,16 +75,27 @@ class AddEditUserView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              Text(
-                isUpdate ? Translate.update_obj.trParams({
-                  'obj' : isProfile ? Translate.profile.tr : Translate.staff.tr
-                }) : Translate.add_obj.trParams({
-                  'obj' : Translate.staff.tr
-                }),
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w500
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    Translate.profile.tr,
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: (){
+                      setState(() {
+                        editMode = true;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.edit
+                    ),
+                  )
+                ],
               ),
               SizedBox(height: 24),
 
@@ -79,7 +104,7 @@ class AddEditUserView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 14),
                     child: UserImage(
-                      image: user!.imageId,
+                      image: widget.user!.imageId,
                       newImageData: imageData,
                       onPickNewImage: (Uint8List? newImage){
                         if(newImage == null) return ;
@@ -87,7 +112,7 @@ class AddEditUserView extends StatelessWidget {
                           imageData = newImage;
                         });
                       },
-                      name: user!.name,
+                      name: widget.user!.name,
                       radius: 52,
                       isUpdate: isUpdate,
                     ),
@@ -105,6 +130,7 @@ class AddEditUserView extends StatelessWidget {
                 validator: (string) => TextValidators.normal(string, Translate.validObj.trParams({
                   'obj' : Translate.name.tr
                 })),
+                enabled: editMode,
               ),
               SizedBox(height: 14),
               CTextField(
@@ -115,6 +141,7 @@ class AddEditUserView extends StatelessWidget {
                 title: Translate.email.tr,
                 fillColor: Colors.grey.shade300,
                 validator: TextValidators.email,
+                enabled: editMode,
               ),
               SizedBox(height: 14),
               CTextField(
@@ -125,6 +152,7 @@ class AddEditUserView extends StatelessWidget {
                 title: Translate.phone_number.tr,
                 fillColor: Colors.grey.shade300,
                 validator: TextValidators.phone,
+                enabled: editMode,
               ),
               SizedBox(height: 14),
               if(!isUpdate) Column(
@@ -139,6 +167,7 @@ class AddEditUserView extends StatelessWidget {
                     validator: (string) => TextValidators.normal(string, Translate.validObj.trParams({
                       'obj' : Translate.username.tr
                     })),
+                    enabled: editMode,
                   ),
                   SizedBox(height: 14),
                   CTextField(
@@ -150,23 +179,90 @@ class AddEditUserView extends StatelessWidget {
                     fillColor: Colors.grey.shade300,
                     password: true,
                     validator: TextValidators.password,
+                    enabled: editMode,
                   ),
                   SizedBox(height: 14),
                 ],
               ),
 
-              if(_userController.isMerchant && isUpdate) Column(
-                children: [
-                  CTextField(
-                    controller: newPasswordController,
-                    hint: Translate.enter_obj.trParams({
-                      'obj' : Translate.newPassword.tr
-                    }),
-                    title: Translate.newPassword.tr,
-                    fillColor: Colors.grey.shade300,
-                    password: true,
+              if(_userController.isMerchant && isUpdate) Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: (){
+                    widget.onCancel.call();
+                    final newPasswordController = TextEditingController();
+                    final confPasswordController = TextEditingController();
+                    final passwordFormKey = GlobalKey<FormState>();
+                    Get.dialog(AlertDialog(
+                      title: Text(
+                        'Change password',
+                      ),
+                      content: Form(
+                        key: passwordFormKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CTextField(
+                              controller: newPasswordController,
+                              hint: Translate.enter_obj.trParams({
+                                'obj' : Translate.newPassword.tr
+                              }),
+                              title: Translate.newPassword.tr,
+                              fillColor: Colors.grey.shade300,
+                              password: true,
+                              validator: TextValidators.password,
+                            ),
+                            SizedBox(height: 14),
+                            CTextField(
+                              controller: confPasswordController,
+                              hint: Translate.enter_obj.trParams({
+                                'obj' : 'Password again'
+                              }),
+                              title: 'Confirm password',
+                              fillColor: Colors.grey.shade300,
+                              password: true,
+                              validator: (string) => TextValidators.confirmPassword(string, newPasswordController.text),
+                            ),
+                          ],
+                        ),
+                      ),
+                      actions: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: 140,
+                              child: CButton(
+                                onPressed: Get.back,
+                                label: Translate.cancel.tr,
+                              ),
+                            ),
+                            SizedBox(width: 32),
+                            SizedBox(
+                              width: 140,
+                              child: CButton(
+                                loading: _userController.updateLoading,
+                                onPressed: () async{
+                                  if(!passwordFormKey.currentState!.validate()) return ;
+                                  _userController.updatePassword(
+                                    newPasswordController.text,
+                                    widget.user!.userId
+                                  );
+                                  Get.back();
+                                },
+                                label: Translate.update.tr,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ));
+                  },
+                  child: Text(
+                    Translate.newPassword.tr
                   ),
-                ],
+                ),
               ),
 
               SizedBox(height: 24),
@@ -183,13 +279,13 @@ class AddEditUserView extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              Row(
+              if(editMode) Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: 140,
                     child: CButton(
-                      onPressed: onCancel,
+                      onPressed: widget.onCancel,
                       label: Translate.cancel.tr,
                     ),
                   ),
@@ -206,15 +302,8 @@ class AddEditUserView extends StatelessWidget {
                           if(imageData != null){
                             _userController.uploadImage(
                               imageData!,
-                              user!.userId,
-                              user!.userType
-                            );
-                          }
-
-                          if(newPasswordController.text.isNotEmpty){
-                            await _userController.updatePassword(
-                              newPasswordController.text,
-                              user!.userId
+                              widget.user!.userId,
+                              widget.user!.userType
                             );
                           }
 
@@ -222,13 +311,13 @@ class AddEditUserView extends StatelessWidget {
                             name: nameController.text,
                             email: emailController.text,
                             phone: phoneController.text,
-                            uid: user!.userId,
-                            load: !isProfile
+                            uid: widget.user!.userId,
+                            load: !widget.isProfile
                           );
                           if(res.error){
                             errorMsg(res.message);
                           }else{
-                            if(onDone != null) onDone!.call();
+                            if(widget.onDone != null) widget.onDone!.call();
                           }
                         }else{
                           final res = await _userController.addUser(
@@ -241,7 +330,7 @@ class AddEditUserView extends StatelessWidget {
                           if(res.error){
                             errorMsg(res.message);
                           }else{
-                            if(onDone != null) onDone!.call();
+                            if(widget.onDone != null) widget.onDone!.call();
                           }
                         }
                       },

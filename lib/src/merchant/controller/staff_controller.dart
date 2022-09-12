@@ -22,18 +22,17 @@ class StaffController extends GetxController{
     getData();
   }
 
-  Future<void> getData () async{
+  Future<void> getData ([bool load = true]) async{
+    if(load) _loading(true);
     await Future.wait([
       getStaffList(),
     ]);
+    if(load) _loading(false);
   }
 
   Future<List<User>> getStaffList() async{
-    _loading(true);
     staffList(await _repo.allStaff());
     staffList.removeWhere((user) => user.userType == UserType.MERCHANT);
-    _loading(false);
-
     return staffList;
   }
 }

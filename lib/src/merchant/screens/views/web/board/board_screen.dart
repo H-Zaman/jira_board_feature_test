@@ -21,6 +21,12 @@ class _BoardScreenWebState extends State<BoardScreenWeb> {
   final _scrollController = ScrollController();
 
   @override
+  void initState() {
+    _controller.getData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(()=>_controller.loading ? Loader(
       color: Colors.black,

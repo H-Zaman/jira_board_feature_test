@@ -203,19 +203,19 @@ class _WebDrawer extends StatelessWidget {
                     icon: Icons.dashboard_outlined,
                     label: 'Board',
                     selected: _homeController.homePageIndex.value == 0,
-                    onPressed: () => _homeController.homePageIndex(0),
+                    onPressed: () => _homeController.onChange(0),
                   ),
                   if(_userController.isMerchant) DrawerListTile(
                     icon: CupertinoIcons.person_2_fill,
                     label: 'Staff',
                     selected: _homeController.homePageIndex.value == 1,
-                    onPressed: () => _homeController.homePageIndex(1),
+                    onPressed: () => _homeController.onChange(1),
                   ),
                   if(_userController.isMerchant) DrawerListTile(
                     icon: CupertinoIcons.settings_solid,
                     label: 'Configuration',
                     selected: _homeController.homePageIndex.value == 2,
-                    onPressed: () => _homeController.homePageIndex(2),
+                    onPressed: () => _homeController.onChange(2),
                   )
                 ],
               ),

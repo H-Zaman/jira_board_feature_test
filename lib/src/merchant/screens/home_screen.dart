@@ -7,7 +7,6 @@ import 'views/web/home_screen.dart';
 class HomeBoardScreen extends StatelessWidget {
   static const String route = '/HomeBoardScreen';
 
-
   const HomeBoardScreen({Key? key}) : super(key: key);
 
   @override
