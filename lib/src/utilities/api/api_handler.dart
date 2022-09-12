@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' as Get;
 import 'package:vnotifyu/src/merchant/controller/auth_controller.dart';
 import 'package:vnotifyu/src/merchant/screens/splash_screen.dart';
+import 'package:vnotifyu/src/utilities/env.dart';
 import 'package:vnotifyu/src/utilities/logger.dart';
 
 import '_api.dart';
@@ -34,7 +35,7 @@ class Api{
 
     _dio.options = _options..headers = _headers;
 
-    _dio.options = _options..baseUrl = baseUrl ?? Endpoints.baseUrl;
+    _dio.options = _options..baseUrl = baseUrl ?? Env.baseApiUrl;
 
     return _dio;
   }
