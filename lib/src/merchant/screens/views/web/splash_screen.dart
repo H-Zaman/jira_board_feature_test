@@ -20,7 +20,7 @@ class _SplashScreenWebState extends State<SplashScreenWeb> {
   String selectedMenu = 'Home';
 
   final demoMenu = [
-    'Home',
+    'HomeXXX',
     'About',
     'Gallery',
   ];

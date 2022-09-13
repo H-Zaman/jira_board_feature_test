@@ -99,25 +99,23 @@ class _AddEditUserViewState extends State<AddEditUserView> {
               ),
               SizedBox(height: 24),
 
-              if(isUpdate) StatefulBuilder(
-                builder: (BuildContext context, void Function(void Function()) setState) => Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 14),
-                    child: UserImage(
-                      image: widget.user!.imageId,
-                      newImageData: imageData,
-                      onPickNewImage: (Uint8List? newImage){
-                        if(newImage == null) return ;
-                        setState((){
-                          imageData = newImage;
-                        });
-                      },
-                      name: widget.user!.name,
-                      radius: 52,
-                      isUpdate: isUpdate,
-                    ),
+              if(isUpdate) Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 14),
+                  child: UserImage(
+                    image: widget.user!.imageId,
+                    newImageData: imageData,
+                    onPickNewImage: (Uint8List? newImage){
+                      if(newImage == null) return ;
+                      setState((){
+                        imageData = newImage;
+                      });
+                    },
+                    name: widget.user!.name,
+                    radius: 52,
+                    isUpdate: isUpdate && editMode,
                   ),
-                )
+                ),
               ),
 
               CTextField(
